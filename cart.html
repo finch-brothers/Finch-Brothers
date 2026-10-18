@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Cart – Finch Brothers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0f1f3d;
+      --navy-dark: #0a1628;
+      --navy-light: #1a3560;
+      --gold: #e8a020;
+      --gold-light: #f5b942;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+      --transition: .25s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f6fb; color: #1a1a2e; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: var(--navy); box-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+    .header-top {
+      display: flex; align-items: center; gap: 20px;
+      max-width: 1280px; margin: 0 auto;
+      padding: 14px 24px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-wrap img { height: 42px; object-fit: contain; }
+    .logo-text { color: #fff; font-size: 20px; font-weight: 800; line-height: 1.1; }
+    .logo-text span { color: var(--gold); }
+    .logo-tag { color: rgba(255,255,255,.55); font-size: 10px; font-weight: 400; }
+
+    .search-bar {
+      flex: 1; display: flex; align-items: center;
+      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.18);
+      border-radius: 50px; overflow: hidden;
+      transition: var(--transition);
+    }
+    .search-bar:focus-within { background: rgba(255,255,255,.15); border-color: var(--gold); }
+    .search-bar select {
+      background: rgba(255,255,255,.12); color: #fff; border: none;
+      padding: 10px 12px; font-family: inherit; font-size: 13px; cursor: pointer; outline: none;
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .search-bar select option { background: var(--navy); }
+    .search-bar input {
+      flex: 1; background: transparent; border: none; color: #fff;
+      padding: 10px 16px; font-family: inherit; font-size: 14px; outline: none;
+    }
+    .search-bar input::placeholder { color: rgba(255,255,255,.45); }
+    .search-bar button {
+      background: var(--gold); border: none; color: var(--navy);
+      padding: 10px 18px; cursor: pointer; font-size: 15px;
+      transition: var(--transition);
+    }
+    .search-bar button:hover { background: var(--gold-light); }
+
+    .header-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .action-btn {
+      display: flex; flex-direction: column; align-items: center;
+      color: rgba(255,255,255,.8); text-decoration: none;
+      padding: 6px 12px; border-radius: var(--radius); font-size: 11px; gap: 3px;
+      transition: var(--transition); border: none; background: transparent; cursor: pointer; position: relative;
+    }
+    .action-btn i { font-size: 18px; }
+    .action-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .action-btn .badge {
+      position: absolute; top: 2px; right: 6px;
+      background: var(--gold); color: var(--navy);
+      font-size: 9px; font-weight: 700; border-radius: 50%;
+      width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    .sign-in-btn {
+      background: var(--gold); color: var(--navy) !important; border-radius: 50px !important;
+      padding: 8px 18px !important; font-weight: 700 !important; font-size: 13px !important;
+      gap: 6px !important;
+    }
+    .sign-in-btn:hover { background: var(--gold-light) !important; }
+
+    /* NAV */
+    nav { background: var(--navy-light); border-top: 1px solid rgba(255,255,255,.08); }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-inner a {
+      color: rgba(255,255,255,.8); text-decoration: none; font-size: 13.5px; font-weight: 500;
+      padding: 10px 14px; border-radius: 6px; transition: var(--transition); white-space: nowrap;
+    }
+    .nav-inner a:hover { color: #fff; background: rgba(255,255,255,.1); }
+    .nav-inner a.active { color: var(--gold); }
+    .nav-inner .nav-sale { color: #ff6b6b !important; font-weight: 700; }
+
+    /* ===== BREADCRUMB / STEPPER ===== */
+    .stepper-wrap {
+      background: #fff; border-bottom: 1px solid #e8edf5;
+      padding: 16px 0;
+    }
+    .stepper {
+      max-width: 1280px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 0;
+    }
+    .step {
+      display: flex; align-items: center; gap: 8px; flex: 1;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: calc(100% - 130px); height: 2px; background: #e0e5ef;
+      margin-left: 130px;
+    }
+    .step.completed:not(:last-child)::after { background: var(--gold); }
+    .step-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid #d0d8e8; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #aab; flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .step.active .step-circle { border-color: var(--gold); background: var(--gold); color: var(--navy); }
+    .step.completed .step-circle { border-color: #27ae60; background: #27ae60; color: #fff; }
+    .step-label { font-size: 13px; font-weight: 600; color: #aab; white-space: nowrap; }
+    .step.active .step-label { color: var(--navy); }
+    .step.completed .step-label { color: #27ae60; }
+
+    /* ===== MAIN ===== */
+    .main-wrap {
+      max-width: 1280px; margin: 28px auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start;
+    }
+
+    /* SECTION CARD */
+    .card {
+      background: #fff; border-radius: var(--radius-lg);
+      box-shadow: 0 2px 16px rgba(0,0,0,.07); overflow: hidden;
+    }
+    .card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid #f0f2f8;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-title { font-size: 17px; font-weight: 700; color: var(--navy); }
+    .card-subtitle { font-size: 13px; color: #889; margin-top: 2px; }
+
+    /* ===== CART ITEM ===== */
+    .cart-item {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f0f2f8;
+      display: flex; gap: 16px;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .cart-item.removing {
+      max-height: 0; padding: 0; opacity: 0;
+      border: none; overflow: hidden;
+      transition: max-height .4s ease, opacity .3s, padding .4s;
+    }
+    .cart-img {
+      width: 100px; height: 110px; border-radius: 10px; overflow: hidden; flex-shrink: 0;
+      border: 1px solid #eef0f6;
+    }
+    .cart-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-info { flex: 1; }
+    .cart-brand { font-size: 11.5px; color: #889; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .cart-name { font-size: 15px; font-weight: 700; color: var(--navy); margin: 3px 0 6px; }
+    .cart-meta { display: flex; gap: 10px; font-size: 12.5px; color: #556; margin-bottom: 10px; }
+    .cart-meta span {
+      background: #f3f5fb; padding: 3px 10px; border-radius: 20px; font-weight: 500;
+    }
+    .qty-stepper {
+      display: inline-flex; align-items: center; gap: 0;
+      border: 1.5px solid #d0d8e8; border-radius: 8px; overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .qty-btn {
+      background: #f6f8fc; border: none; color: var(--navy);
+      width: 32px; height: 32px; font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--gold); color: var(--navy); }
+    .qty-val {
+      width: 38px; height: 32px; text-align: center; border: none;
+      font-family: inherit; font-size: 14px; font-weight: 700; color: var(--navy);
+      background: #fff;
+    }
+    .cart-price-row { display: flex; align-items: center; gap: 10px; }
+    .price-now { font-size: 18px; font-weight: 800; color: var(--navy); }
+    .price-was { font-size: 13px; color: #aab; text-decoration: line-through; }
+    .discount-badge {
+      background: #e8f5e9; color: #27ae60;
+      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
+    }
+    .cart-actions {
+      display: flex; gap: 14px; margin-top: 10px; align-items: center;
+    }
+    .cart-actions a {
+      font-size: 12.5px; color: var(--navy); text-decoration: none;
+      font-weight: 600; display: flex; align-items: center; gap: 5px;
+      transition: var(--transition);
+    }
+    .cart-actions a:hover { color: var(--gold); }
+    .cart-actions .divider { width: 1px; height: 14px; background: #d5dae8; }
+    .delivery-est {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: #27ae60; font-weight: 600; margin-top: 6px;
+    }
+
+    /* CART FOOTER */
+    .cart-footer { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .continue-link {
+      font-size: 14px; font-weight: 600; color: var(--navy);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: var(--transition);
+    }
+    .continue-link:hover { color: var(--gold); }
+
+    /* COUPON */
+    .coupon-section { padding: 20px 24px; background: #f9faff; border-top: 1px solid #f0f2f8; }
+    .coupon-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .coupon-row { display: flex; gap: 10px; }
+    .coupon-input {
+      flex: 1; border: 1.5px solid #d0d8e8; border-radius: 8px;
+      padding: 10px 14px; font-family: inherit; font-size: 14px;
+      text-transform: uppercase; outline: none; transition: var(--transition);
+      letter-spacing: 1px;
+    }
+    .coupon-input:focus { border-color: var(--gold); }
+    .apply-btn {
+      background: var(--navy); color: #fff; border: none;
+      padding: 10px 22px; border-radius: 8px; font-family: inherit;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: var(--transition);
+    }
+    .apply-btn:hover { background: var(--navy-light); }
+    .coupon-success {
+      display: none; margin-top: 10px; background: #e8f5e9;
+      border: 1.5px solid #a5d6a7; border-radius: 8px;
+      padding: 10px 14px; font-size: 13px; font-weight: 600; color: #2e7d32;
+      align-items: center; gap: 8px;
+    }
+    .coupon-success.show { display: flex; }
+    .coupon-error {
+      display: none; margin-top: 10px; background: #fdecea;
+      border: 1.5px solid #ef9a9a; border-radius: 8px;
+      padding: 10px 14px; font-size: 13px; font-weight: 600; color: #c62828;
+      align-items: center; gap: 8px;
+    }
+    .coupon-error.show { display: flex; }
+
+    /* YOU MAY ALSO LIKE */
+    .also-like { padding: 24px; border-top: 1px solid #f0f2f8; }
+    .also-like h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+    .mini-products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .mini-card {
+      border-radius: var(--radius); overflow: hidden;
+      border: 1.5px solid #eef0f6; transition: var(--transition); cursor: pointer;
+      background: #fff;
+    }
+    .mini-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); border-color: var(--gold); }
+    .mini-img { width: 100%; aspect-ratio: 1; overflow: hidden; }
+    .mini-img img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+    .mini-card:hover .mini-img img { transform: scale(1.06); }
+    .mini-info { padding: 10px; }
+    .mini-name { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-price { font-size: 13px; font-weight: 800; color: var(--navy); }
+    .mini-was { font-size: 11px; color: #aab; text-decoration: line-through; }
+    .mini-add {
+      width: 100%; background: var(--navy); color: #fff; border: none;
+      padding: 7px; font-family: inherit; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: var(--transition);
+    }
+    .mini-add:hover { background: var(--gold); color: var(--navy); }
+
+    /* ===== ORDER SUMMARY ===== */
+    .summary-card {
+      background: #fff; border-radius: var(--radius-lg);
+      box-shadow: 0 2px 16px rgba(0,0,0,.07); overflow: hidden;
+      position: sticky; top: 88px;
+    }
+    .summary-header {
+      background: var(--navy); padding: 18px 22px;
+      color: #fff; font-size: 15px; font-weight: 700;
+    }
+    .summary-body { padding: 20px 22px; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; font-size: 14px;
+    }
+    .summary-row .label { color: #556; }
+    .summary-row .value { font-weight: 600; color: var(--navy); }
+    .summary-row .free { color: #27ae60; font-weight: 700; }
+    .summary-row .free s { color: #aab; font-weight: 400; font-size: 12px; margin-left: 4px; }
+    .summary-row .discount { color: #27ae60; }
+    .summary-divider { height: 1px; background: #eef0f6; margin: 14px 0; }
+    .summary-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .total-label { font-size: 15px; font-weight: 700; color: var(--navy); }
+    .total-value { font-size: 22px; font-weight: 800; color: var(--navy); }
+    .savings-note {
+      background: #e8f5e9; border-radius: 8px; padding: 10px 14px;
+      font-size: 13px; color: #2e7d32; font-weight: 700;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
+    }
+    .checkout-btn {
+      width: 100%; background: var(--gold); border: none; color: var(--navy);
+      padding: 15px; border-radius: 10px; font-family: inherit;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      transition: var(--transition); text-decoration: none; display: block;
+      text-align: center;
+    }
+    .checkout-btn:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,160,32,.35); }
+    .secure-row {
+      display: flex; justify-content: center; gap: 18px; margin-top: 16px;
+      padding-top: 14px; border-top: 1px solid #eef0f6;
+    }
+    .secure-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: #889; font-weight: 500; }
+    .secure-item i { font-size: 20px; color: var(--navy); }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--navy-dark); color: rgba(255,255,255,.75); margin-top: 60px; }
+    .footer-main {
+      max-width: 1280px; margin: 0 auto; padding: 56px 24px 40px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    }
+    .footer-brand .logo-wrap { margin-bottom: 14px; }
+    .footer-brand p { font-size: 13.5px; line-height: 1.7; color: rgba(255,255,255,.55); max-width: 280px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 18px; }
+    .footer-socials a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.6); font-size: 14px; text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .footer-col h4 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: rgba(255,255,255,.55); text-decoration: none; font-size: 13.5px; transition: var(--transition); }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 18px 24px; text-align: center;
+      font-size: 12.5px; color: rgba(255,255,255,.35);
+      max-width: 1280px; margin: 0 auto;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: var(--navy); color: #fff; padding: 14px 24px;
+      border-radius: 50px; font-size: 14px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.2); z-index: 9999;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .main-wrap { grid-template-columns: 1fr; }
+      .summary-card { position: static; }
+      .mini-products { grid-template-columns: repeat(2, 1fr); }
+      .step:not(:last-child)::after { display: none; }
+    }
+    @media (max-width: 640px) {
+      .header-top { flex-wrap: wrap; gap: 12px; }
+      .search-bar { order: 3; width: 100%; }
+      .cart-img { width: 76px; height: 86px; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-top">
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="Finch Brothers" />
+      <div>
+        <div class="logo-text">Finch <span>Brothers</span></div>
+        <div class="logo-tag">Quality You Can Trust. Value You'll Love.</div>
+      </div>
+    </a>
+    <div class="search-bar">
+      <select aria-label="Category">
+        <option>All</option>
+        <option>Fashion</option>
+        <option>Electronics</option>
+        <option>Home</option>
+        <option>Kitchen</option>
+      </select>
+      <input type="text" placeholder="Search products, brands and more…" />
+      <button aria-label="Search"><i class="fa fa-search"></i></button>
+    </div>
+    <div class="header-actions">
+      <a href="auth.html" class="action-btn sign-in-btn"><i class="fa fa-user"></i> Sign In</a>
+      <a href="index.html" class="action-btn"><i class="fa fa-heart"></i><span>Wishlist</span></a>
+      <a href="cart.html" class="action-btn">
+        <i class="fa fa-shopping-cart"></i><span>Cart</span>
+        <span class="badge" id="cart-badge">3</span>
+      </a>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html">Home</a>
+      <a href="products.html">All Products</a>
+      <a href="products.html?cat=fashion">Fashion</a>
+      <a href="products.html?cat=electronics">Electronics</a>
+      <a href="products.html?cat=home">Home & Living</a>
+      <a href="products.html?cat=kitchen">Kitchen</a>
+      <a href="products.html?cat=bags">Bags</a>
+      <a href="products.html?sale=1" class="nav-sale">🔥 Sale</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== STEPPER ===== -->
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step active">
+      <div class="step-circle"><i class="fa fa-shopping-cart" style="font-size:13px;"></i></div>
+      <div class="step-label">My Cart</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-label">Address</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-label">Payment</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-label">Confirm</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-wrap">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- CART ITEMS -->
+    <div class="card" id="cart-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">My Cart <span id="item-count-label">(3 Items)</span></div>
+          <div class="card-subtitle">Review your selected items before checkout</div>
+        </div>
+        <a href="products.html" style="font-size:13px;color:var(--navy);font-weight:600;text-decoration:none;">
+          <i class="fa fa-plus-circle"></i> Add More
+        </a>
+      </div>
+
+      <!-- Item 1 -->
+      <div class="cart-item" id="item-1">
+        <div class="cart-img"><img src="images/products/shirt.jpg" alt="Classic Oxford Shirt" /></div>
+        <div class="cart-info">
+          <div class="cart-brand">Finch Essentials</div>
+          <div class="cart-name">Classic Oxford Button-Down Shirt</div>
+          <div class="cart-meta">
+            <span>Size: M</span>
+            <span>Color: Navy</span>
+          </div>
+          <div class="qty-stepper">
+            <button class="qty-btn" onclick="changeQty('qty1',-1,849)">−</button>
+            <input class="qty-val" id="qty1" value="1" readonly />
+            <button class="qty-btn" onclick="changeQty('qty1',1,849)">+</button>
+          </div>
+          <div class="cart-price-row">
+            <span class="price-now" id="price1">₹849</span>
+            <span class="price-was">₹1,699</span>
+            <span class="discount-badge">50% off</span>
+          </div>
+          <div class="cart-actions">
+            <a href="#" onclick="removeItem('item-1');return false;"><i class="fa fa-trash-alt"></i> Remove</a>
+            <div class="divider"></div>
+            <a href="#"><i class="fa fa-heart"></i> Move to Wishlist</a>
+          </div>
+          <div class="delivery-est"><i class="fa fa-truck"></i> Delivery by Thu, 23 Oct — FREE</div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="cart-item" id="item-2">
+        <div class="cart-img"><img src="images/products/shoes.jpg" alt="Running Shoes" /></div>
+        <div class="cart-info">
+          <div class="cart-brand">Finch Sport</div>
+          <div class="cart-name">Pro Runner Athletic Shoes</div>
+          <div class="cart-meta">
+            <span>Size: 42</span>
+            <span>Color: Black</span>
+          </div>
+          <div class="qty-stepper">
+            <button class="qty-btn" onclick="changeQty('qty2',-1,1299)">−</button>
+            <input class="qty-val" id="qty2" value="1" readonly />
+            <button class="qty-btn" onclick="changeQty('qty2',1,1299)">+</button>
+          </div>
+          <div class="cart-price-row">
+            <span class="price-now" id="price2">₹1,299</span>
+            <span class="price-was">₹2,499</span>
+            <span class="discount-badge">48% off</span>
+          </div>
+          <div class="cart-actions">
+            <a href="#" onclick="removeItem('item-2');return false;"><i class="fa fa-trash-alt"></i> Remove</a>
+            <div class="divider"></div>
+            <a href="#"><i class="fa fa-heart"></i> Move to Wishlist</a>
+          </div>
+          <div class="delivery-est"><i class="fa fa-truck"></i> Delivery by Wed, 22 Oct — FREE</div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="cart-item" id="item-3">
+        <div class="cart-img"><img src="images/products/backpack.jpg" alt="Adventure Backpack" /></div>
+        <div class="cart-info">
+          <div class="cart-brand">Finch Gear</div>
+          <div class="cart-name">Adventure Pro 40L Backpack</div>
+          <div class="cart-meta">
+            <span>Size: One Size</span>
+            <span>Color: Olive</span>
+          </div>
+          <div class="qty-stepper">
+            <button class="qty-btn" onclick="changeQty('qty3',-1,3149)">−</button>
+            <input class="qty-val" id="qty3" value="1" readonly />
+            <button class="qty-btn" onclick="changeQty('qty3',1,3149)">+</button>
+          </div>
+          <div class="cart-price-row">
+            <span class="price-now" id="price3">₹3,149</span>
+            <span class="price-was">₹5,999</span>
+            <span class="discount-badge">47% off</span>
+          </div>
+          <div class="cart-actions">
+            <a href="#" onclick="removeItem('item-3');return false;"><i class="fa fa-trash-alt"></i> Remove</a>
+            <div class="divider"></div>
+            <a href="#"><i class="fa fa-heart"></i> Move to Wishlist</a>
+          </div>
+          <div class="delivery-est"><i class="fa fa-truck"></i> Delivery by Fri, 24 Oct — FREE</div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-cart" style="display:none;padding:60px 24px;text-align:center;">
+        <i class="fa fa-shopping-cart" style="font-size:56px;color:#d0d8e8;margin-bottom:16px;display:block;"></i>
+        <div style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">Your cart is empty</div>
+        <p style="font-size:14px;color:#889;margin-bottom:20px;">Looks like you haven't added anything yet.</p>
+        <a href="products.html" class="checkout-btn" style="display:inline-block;width:auto;padding:12px 30px;">Start Shopping</a>
+      </div>
+
+      <!-- Cart Footer -->
+      <div class="cart-footer">
+        <a href="products.html" class="continue-link"><i class="fa fa-arrow-left"></i> Continue Shopping</a>
+        <div style="font-size:13px;color:#889;"><i class="fa fa-shield-alt" style="color:var(--gold);"></i> Secure Checkout</div>
+      </div>
+
+      <!-- Coupon -->
+      <div class="coupon-section">
+        <div class="coupon-title"><i class="fa fa-tag" style="color:var(--gold);"></i> Apply Coupon Code</div>
+        <div class="coupon-row">
+          <input class="coupon-input" id="coupon-input" type="text" placeholder="Enter coupon code e.g. FB20" />
+          <button class="apply-btn" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div class="coupon-success" id="coupon-success">
+          <i class="fa fa-check-circle"></i>
+          <span><strong>FB20 applied!</strong> You saved ₹260 on this order 🎉</span>
+          <a href="#" onclick="removeCoupon();return false;" style="margin-left:auto;color:#c62828;font-size:12px;">Remove</a>
+        </div>
+        <div class="coupon-error" id="coupon-error">
+          <i class="fa fa-times-circle"></i>
+          <span>Invalid coupon code. Try <strong>FB20</strong> for 15% off!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOU MAY ALSO LIKE -->
+    <div class="card" style="margin-top:20px;">
+      <div class="also-like">
+        <h3>✨ You May Also Like</h3>
+        <div class="mini-products">
+          <div class="mini-card">
+            <div class="mini-img"><img src="images/products/watch.jpg" alt="Watch" /></div>
+            <div class="mini-info">
+              <div class="mini-name">Classic Wrist Watch</div>
+              <div class="mini-price">₹2,499 <span class="mini-was">₹4,999</span></div>
+            </div>
+            <button class="mini-add" onclick="showToast('Watch added to cart!')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+          </div>
+          <div class="mini-card">
+            <div class="mini-img"><img src="images/products/earbuds.jpg" alt="Earbuds" /></div>
+            <div class="mini-info">
+              <div class="mini-name">True Wireless Earbuds</div>
+              <div class="mini-price">₹1,799 <span class="mini-was">₹3,499</span></div>
+            </div>
+            <button class="mini-add" onclick="showToast('Earbuds added to cart!')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+          </div>
+          <div class="mini-card">
+            <div class="mini-img"><img src="images/products/sunglasses.jpg" alt="Sunglasses" /></div>
+            <div class="mini-info">
+              <div class="mini-name">UV400 Sunglasses</div>
+              <div class="mini-price">₹599 <span class="mini-was">₹1,299</span></div>
+            </div>
+            <button class="mini-add" onclick="showToast('Sunglasses added to cart!')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+          </div>
+          <div class="mini-card">
+            <div class="mini-img"><img src="images/products/jacket.jpg" alt="Jacket" /></div>
+            <div class="mini-info">
+              <div class="mini-name">Premium Winter Jacket</div>
+              <div class="mini-price">₹3,299 <span class="mini-was">₹6,499</span></div>
+            </div>
+            <button class="mini-add" onclick="showToast('Jacket added to cart!')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /left -->
+
+  <!-- RIGHT COLUMN - ORDER SUMMARY -->
+  <div>
+    <div class="summary-card">
+      <div class="summary-header">
+        <i class="fa fa-receipt" style="margin-right:8px;"></i> Price Details
+      </div>
+      <div class="summary-body">
+        <div class="summary-row">
+          <span class="label">Price (<span id="item-count">3</span> items)</span>
+          <span class="value" id="sum-mrp">₹8,197</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Discount</span>
+          <span class="value discount">−₹3,198</span>
+        </div>
+        <div class="summary-row" id="coupon-row" style="display:none;">
+          <span class="label">Coupon Discount (FB20)</span>
+          <span class="value discount">−₹260</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Delivery Charges</span>
+          <span class="free">FREE <s>₹99</s></span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span class="total-label">Total Amount</span>
+          <span class="total-value" id="total-val">₹4,999</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="savings-note" id="savings-note">
+          <i class="fa fa-piggy-bank"></i>
+          <span>You will save <strong id="savings-val">₹3,198</strong> on this order!</span>
+        </div>
+        <a href="checkout.html" class="checkout-btn">
+          Proceed to Checkout <i class="fa fa-arrow-right"></i>
+        </a>
+        <div class="secure-row">
+          <div class="secure-item"><i class="fa fa-lock"></i>100% Secure</div>
+          <div class="secure-item"><i class="fa fa-undo"></i>Easy Returns</div>
+          <div class="secure-item"><i class="fa fa-certificate"></i>Authentic</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offers card -->
+    <div class="card" style="margin-top:16px;padding:18px 20px;">
+      <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+        <i class="fa fa-gift" style="color:var(--gold);"></i> Available Offers
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:10px;font-size:12.5px;">
+          <i class="fa fa-check-circle" style="color:#27ae60;margin-top:2px;flex-shrink:0;"></i>
+          <span><strong>10% off</strong> on SBI Credit Cards. Use code <strong style="color:var(--navy);">SBI10</strong></span>
+        </div>
+        <div style="display:flex;gap:10px;font-size:12.5px;">
+          <i class="fa fa-check-circle" style="color:#27ae60;margin-top:2px;flex-shrink:0;"></i>
+          <span><strong>Free delivery</strong> on orders above ₹499</span>
+        </div>
+        <div style="display:flex;gap:10px;font-size:12.5px;">
+          <i class="fa fa-check-circle" style="color:#27ae60;margin-top:2px;flex-shrink:0;"></i>
+          <span><strong>15% off</strong> on first order. Use code <strong style="color:var(--navy);">FB20</strong></span>
+        </div>
+      </div>
+    </div>
+  </div><!-- /right -->
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="index.html" class="logo-wrap">
+        <img src="logo.png" alt="Finch Brothers" style="height:36px;" />
+        <div class="logo-text">Finch <span>Brothers</span></div>
+      </a>
+      <p>Your one-stop destination for fashion, electronics, home essentials and more. Quality you can trust, value you'll love.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="dashboard.html">My Account</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#">Fashion</a></li>
+        <li><a href="#">Electronics</a></li>
+        <li><a href="#">Home & Living</a></li>
+        <li><a href="#">Kitchen</a></li>
+        <li><a href="#">Bags & Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help & Support</h4>
+      <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Finch Brothers. All rights reserved. | Made with ❤️ in India
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fa fa-check-circle"></i><span id="toast-msg">Done!</span></div>
+
+<script>
+  // ===== ITEM TRACKING =====
+  const itemPrices = { 'item-1': 849, 'item-2': 1299, 'item-3': 3149 };
+  const itemQtys   = { 'item-1': 1,   'item-2': 1,    'item-3': 1 };
+  let couponApplied = false;
+
+  function updateSummary() {
+    let mrp = 0, subtotal = 0;
+    const baseMRP = { 'item-1': 1699, 'item-2': 2499, 'item-3': 5999 };
+    let activeItems = 0;
+
+    for (const [id, price] of Object.entries(itemPrices)) {
+      const el = document.getElementById(id);
+      if (el && !el.classList.contains('removed')) {
+        const q = itemQtys[id];
+        mrp += baseMRP[id] * q;
+        subtotal += price * q;
+        activeItems++;
+      }
+    }
+
+    const discount = mrp - subtotal;
+    const couponDisc = couponApplied ? 260 : 0;
+    const total = subtotal - couponDisc;
+
+    document.getElementById('sum-mrp').textContent = '₹' + mrp.toLocaleString('en-IN');
+    document.getElementById('total-val').textContent = '₹' + total.toLocaleString('en-IN');
+    document.getElementById('savings-val').textContent = '₹' + (discount + couponDisc).toLocaleString('en-IN');
+    document.getElementById('item-count').textContent = activeItems;
+    document.getElementById('item-count-label').textContent = '(' + activeItems + ' Item' + (activeItems !== 1 ? 's' : '') + ')';
+    document.getElementById('cart-badge').textContent = activeItems;
+    document.getElementById('coupon-row').style.display = couponApplied ? 'flex' : 'none';
+
+    if (activeItems === 0) {
+      document.getElementById('empty-cart').style.display = 'block';
+    }
+  }
+
+  // ===== QTY STEPPER =====
+  function changeQty(inputId, delta, basePrice) {
+    const inp = document.getElementById(inputId);
+    let val = parseInt(inp.value) + delta;
+    if (val < 1) val = 1;
+    if (val > 9) val = 9;
+    inp.value = val;
+
+    const itemId = inputId.replace('qty', 'item-');
+    itemQtys[itemId] = val;
+    itemPrices[itemId] = basePrice * val;
+
+    const priceEl = document.getElementById('price' + inputId.slice(-1));
+    if (priceEl) priceEl.textContent = '₹' + (basePrice * val).toLocaleString('en-IN');
+
+    updateSummary();
+  }
+
+  // ===== REMOVE ITEM =====
+  function removeItem(id) {
+    const el = document.getElementById(id);
+    el.style.maxHeight = el.offsetHeight + 'px';
+    el.style.overflow = 'hidden';
+    el.style.transition = 'max-height .4s ease, opacity .3s, padding .4s';
+    requestAnimationFrame(() => {
+      el.style.maxHeight = '0';
+      el.style.opacity = '0';
+      el.style.paddingTop = '0';
+      el.style.paddingBottom = '0';
+      el.style.borderBottom = 'none';
+    });
+    el.classList.add('removed');
+    setTimeout(() => { el.style.display = 'none'; updateSummary(); }, 420);
+    showToast('Item removed from cart');
+  }
+
+  // ===== COUPON =====
+  function applyCoupon() {
+    const val = document.getElementById('coupon-input').value.trim().toUpperCase();
+    document.getElementById('coupon-success').classList.remove('show');
+    document.getElementById('coupon-error').classList.remove('show');
+
+    if (val === 'FB20') {
+      couponApplied = true;
+      document.getElementById('coupon-success').classList.add('show');
+      updateSummary();
+      showToast('Coupon FB20 applied! ₹260 saved 🎉');
+    } else {
+      document.getElementById('coupon-error').classList.add('show');
+    }
+  }
+
+  function removeCoupon() {
+    couponApplied = false;
+    document.getElementById('coupon-success').classList.remove('show');
+    document.getElementById('coupon-input').value = '';
+    updateSummary();
+    showToast('Coupon removed');
+  }
+
+  // ===== TOAST =====
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Init
+  updateSummary();
+</script>
+</body>
+</html>

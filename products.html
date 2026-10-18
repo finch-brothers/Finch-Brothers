@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Fashion & Clothing – Finch Brothers</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0f1f3d;--navy-dark:#0a1628;--navy-light:#1a3560;--gold:#e8a020;--gold-light:#f5b942;--white:#fff;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;--gray-600:#6b7280;--gray-800:#1f2937;--red:#dc2626;--green:#16a34a;--shadow:0 4px 16px rgba(0,0,0,.1);--shadow-lg:0 8px 32px rgba(0,0,0,.14);--radius:12px;--radius-lg:18px;--tr:.25s cubic-bezier(.4,0,.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--gray-50);color:var(--gray-800);font-size:14px}
+a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;border:none;font-family:inherit}img{max-width:100%;display:block}
+
+/* ANNOUNCE */
+.announce{background:var(--navy-dark);color:rgba(255,255,255,.85);font-size:12px;padding:7px 24px;display:flex;justify-content:center;gap:40px;font-weight:500}
+/* HEADER */
+.header{background:#fff;padding:12px 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.logo img{height:50px;width:auto;object-fit:contain}
+.search-wrap{flex:1;display:flex;border:2px solid var(--gray-200);border-radius:999px;overflow:hidden;transition:border-color var(--tr)}
+.search-wrap:focus-within{border-color:var(--navy)}
+.search-cat{padding:9px 12px;border-right:1.5px solid var(--gray-200);font-size:12px;font-weight:600;color:var(--gray-600);background:transparent;border-top:none;border-bottom:none;border-left:none;cursor:pointer}
+.search-input{flex:1;padding:9px 14px;font-size:13.5px;border:none;background:transparent;outline:none;font-family:inherit}
+.search-btn{padding:9px 18px;background:var(--navy);color:#fff;font-size:17px;display:flex;align-items:center;transition:background var(--tr)}
+.search-btn:hover{background:var(--navy-light)}
+.hdr-actions{display:flex;align-items:center;gap:4px}
+.hdr-btn{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 9px;border-radius:8px;color:var(--gray-700);font-size:11px;font-weight:600;cursor:pointer;transition:all var(--tr);position:relative}
+.hdr-btn:hover{color:var(--navy);background:var(--gray-100)}
+.hdr-icon{font-size:20px}
+.badge{position:absolute;top:2px;right:4px;background:var(--gold);color:var(--navy-dark);font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.hdr-divider{width:1px;height:30px;background:var(--gray-200);margin:0 3px}
+.hdr-cta{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all var(--tr)}
+.hdr-cta:hover{background:var(--navy-light)}
+/* NAV */
+.main-nav{background:var(--navy);padding:0 32px;display:flex;align-items:center;gap:0}
+.nav-link{display:flex;align-items:center;gap:4px;padding:12px 14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);border-bottom:3px solid transparent;transition:all var(--tr);cursor:pointer;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:#fff;border-bottom-color:var(--gold);background:rgba(255,255,255,.06)}
+.nav-link.hot{color:var(--gold-light)}
+.nav-spacer{flex:1}
+.nav-extra{display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--gold);color:var(--navy-dark);font-size:12px;font-weight:800;border-radius:999px;cursor:pointer;transition:all var(--tr)}
+.nav-extra:hover{background:var(--gold-light)}
+
+/* BREADCRUMB */
+.breadcrumb{background:#fff;padding:12px 32px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--gray-600)}
+.breadcrumb a{color:var(--navy);font-weight:500}
+.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb span{color:var(--gray-400)}
+
+/* LAYOUT */
+.page-layout{display:flex;gap:0;max-width:100%;padding:20px 32px;gap:20px}
+
+/* SIDEBAR */
+.sidebar{width:260px;flex-shrink:0}
+.sidebar-card{background:#fff;border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-title{font-size:13.5px;font-weight:800;color:var(--navy-dark);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.clear-btn{font-size:11px;color:var(--red);font-weight:600;cursor:pointer}
+.clear-btn:hover{text-decoration:underline}
+.filter-group{margin-bottom:18px}
+.filter-label{font-size:12.5px;font-weight:700;color:var(--gray-800);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.filter-toggle{font-size:10px;color:var(--gray-400);transition:transform var(--tr)}
+.filter-options{display:flex;flex-direction:column;gap:7px}
+.filter-check{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--gray-700);transition:color var(--tr)}
+.filter-check:hover{color:var(--navy)}
+.filter-check input{accent-color:var(--navy);width:15px;height:15px}
+.filter-divider{height:1px;background:var(--gray-100);margin:14px 0}
+/* Price Range */
+.price-range{padding:4px 0}
+.price-inputs{display:flex;gap:8px;margin-top:10px}
+.price-input{flex:1;padding:7px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:12.5px;font-family:inherit;outline:none;text-align:center}
+.price-input:focus{border-color:var(--navy)}
+input[type=range]{width:100%;accent-color:var(--navy);margin:8px 0}
+/* Colors */
+.color-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.color-dot{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all var(--tr);position:relative}
+.color-dot:hover,.color-dot.active{border-color:var(--navy);transform:scale(1.15)}
+/* Size */
+.size-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.size-btn{padding:5px 12px;border:1.5px solid var(--gray-200);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all var(--tr);background:transparent}
+.size-btn:hover,.size-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* Rating */
+.rating-option{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 0;font-size:12.5px}
+.rating-option:hover{color:var(--navy)}
+.stars-row{color:#fbbf24;font-size:13px;letter-spacing:1px}
+
+/* MAIN CONTENT */
+.main-content{flex:1;min-width:0}
+.sort-bar{background:#fff;border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.results-count{font-size:13.5px;font-weight:600;color:var(--gray-700)}
+.results-count span{color:var(--navy);font-weight:800}
+.sort-right{display:flex;align-items:center;gap:12px}
+.sort-label{font-size:12.5px;color:var(--gray-600)}
+.sort-select{padding:7px 12px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:12.5px;font-family:inherit;color:var(--gray-800);background:#fff;cursor:pointer;outline:none}
+.sort-select:focus{border-color:var(--navy)}
+.view-toggle{display:flex;gap:4px}
+.view-btn{width:32px;height:32px;border-radius:7px;border:1.5px solid var(--gray-200);background:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--tr)}
+.view-btn.active,.view-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ACTIVE FILTERS */
+.active-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.filter-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--navy);color:#fff;border-radius:999px;font-size:12px;font-weight:600}
+.filter-pill .remove{cursor:pointer;opacity:.7;font-size:13px;font-weight:700}
+.filter-pill .remove:hover{opacity:1}
+
+/* PRODUCT GRID */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.product-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;border:1.5px solid var(--gray-100);transition:all var(--tr);position:relative;display:flex;flex-direction:column}
+.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent}
+.pc-badges{position:absolute;top:10px;left:10px;z-index:3;display:flex;flex-direction:column;gap:4px}
+.badge-tag{font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:999px}
+.badge-new{background:var(--navy);color:#fff}
+.badge-sale{background:var(--red);color:#fff}
+.badge-hot{background:#ea580c;color:#fff}
+.badge-top{background:#0d9488;color:#fff}
+.wish-btn{position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);border:1.5px solid var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:all var(--tr);opacity:0;transform:scale(.8)}
+.product-card:hover .wish-btn{opacity:1;transform:scale(1)}
+.wish-btn.active{background:#fff0f0;border-color:#fca5a5}
+.wish-btn:hover{transform:scale(1.15) !important}
+.pc-img{aspect-ratio:1;overflow:hidden;position:relative;background:var(--gray-50)}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform var(--tr)}
+.product-card:hover .pc-img img{transform:scale(1.06)}
+.pc-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(15,31,61,.88);color:#fff;font-size:12px;font-weight:700;padding:9px;text-align:center;transform:translateY(100%);transition:transform var(--tr);cursor:pointer}
+.product-card:hover .pc-quick{transform:translateY(0)}
+.pc-body{padding:12px;flex:1;display:flex;flex-direction:column}
+.pc-brand{font-size:10px;font-weight:700;color:#c88a15;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.pc-name{font-size:12.5px;font-weight:600;color:var(--gray-800);line-height:1.4;margin-bottom:7px}
+.pc-rating{display:flex;align-items:center;gap:5px;margin-bottom:8px}
+.stars{font-size:11.5px;color:#fbbf24;letter-spacing:.5px}
+.rating-num{font-size:11px;color:var(--gray-600)}
+.pc-pricing{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.pc-price{font-size:15px;font-weight:900;color:var(--navy-dark)}
+.pc-old{font-size:11.5px;color:var(--gray-400);text-decoration:line-through}
+.pc-off{background:#fff3e0;color:#ea580c;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px}
+.pc-delivery{font-size:11px;color:var(--green);font-weight:600;margin-bottom:10px}
+.pc-footer{margin-top:auto}
+.btn-cart{width:100%;padding:9px;background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all var(--tr)}
+.btn-cart:hover{background:var(--navy-light)}
+.btn-cart.added{background:var(--green)}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0}
+.pg-btn{width:38px;height:38px;border-radius:8px;border:1.5px solid var(--gray-200);background:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--tr);color:var(--gray-700)}
+.pg-btn:hover,.pg-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pg-btn.prev-next{width:auto;padding:0 16px;font-size:12.5px;gap:4px}
+
+/* FOOTER */
+.footer{background:var(--navy-dark);padding:48px 32px 0;margin-top:40px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo img{height:56px;width:auto;filter:brightness(0) invert(1);opacity:.9;margin-bottom:12px}
+.footer-desc{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:16px}
+.social-row{display:flex;gap:8px}
+.s-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(255,255,255,.7);cursor:pointer;transition:all var(--tr)}
+.s-btn:hover{background:var(--gold);color:var(--navy-dark);transform:translateY(-2px)}
+.footer-heading{font-size:11px;font-weight:800;color:#fff;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.footer-links li{margin-bottom:9px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.5);transition:color var(--tr)}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:16px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4)}
+.pay-icons{display:flex;gap:6px}
+.pay-icon{background:#fff;border-radius:4px;padding:3px 8px;font-size:9px;font-weight:800;color:var(--navy-dark)}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--navy-dark);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);transform:translateX(120%);transition:transform var(--tr);border-left:3px solid var(--gold)}
+.toast.show{transform:translateX(0)}
+</style>
+</head>
+<body>
+<!-- ANNOUNCE -->
+<div class="announce">
+  <span>🚚 Free Shipping on orders above ₹999</span>
+  <span>🏷️ Exclusive Member Deals</span>
+  <span>🔄 30-Day Easy Returns</span>
+</div>
+<!-- HEADER -->
+<header class="header">
+  <a href="index.html" class="logo"><img src="logo.png" alt="Finch Brothers"/></a>
+  <div class="search-wrap">
+    <select class="search-cat"><option>All</option><option selected>Fashion</option><option>Footwear</option><option>Electronics</option></select>
+    <input class="search-input" type="text" placeholder="Search products, brands..."/>
+    <button class="search-btn">🔍</button>
+  </div>
+  <div class="hdr-actions">
+    <a href="auth.html" class="hdr-btn"><span class="hdr-icon">👤</span><span>Account</span></a>
+    <a href="dashboard.html" class="hdr-btn"><span class="hdr-icon">❤️</span><span>Wishlist</span></a>
+    <div class="hdr-divider"></div>
+    <a href="cart.html" class="hdr-btn" style="position:relative;"><div class="badge">3</div><span class="hdr-icon">🛒</span><span>Cart</span></a>
+    <div class="hdr-divider"></div>
+    <div class="hdr-cta">✦ FB Plus</div>
+  </div>
+</header>
+<!-- NAV -->
+<nav class="main-nav">
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="products.html" class="nav-link active">👕 Fashion</a>
+  <a href="products.html" class="nav-link">👟 Footwear</a>
+  <a href="products.html" class="nav-link">👜 Bags</a>
+  <a href="products.html" class="nav-link">📱 Electronics</a>
+  <a href="products.html" class="nav-link">🪴 Home</a>
+  <a href="products.html" class="nav-link">🍳 Kitchen</a>
+  <div class="nav-spacer"></div>
+  <a href="products.html" class="nav-link hot">🔥 Offers</a>
+  <div style="display:flex;align-items:center;padding:0 12px;"><div class="nav-extra">⚡ Flash Sale</div></div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>›</span>
+  <a href="products.html">Fashion</a><span>›</span>
+  <span style="color:var(--gray-800);font-weight:600;">Men's Clothing</span>
+</div>
+
+<!-- LAYOUT -->
+<div class="page-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Filters <span class="clear-btn" onclick="clearFilters()">Clear All</span></div>
+      <!-- Category -->
+      <div class="filter-group">
+        <div class="filter-label">Category <span class="filter-toggle">▾</span></div>
+        <div class="filter-options">
+          <label class="filter-check"><input type="checkbox" checked onchange="updateFilters()"> Fashion & Clothing</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Footwear</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Bags</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Electronics</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Home & Decor</label>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Price -->
+      <div class="filter-group">
+        <div class="filter-label">Price Range <span class="filter-toggle">▾</span></div>
+        <div class="price-range">
+          <input type="range" id="priceRange" min="0" max="10000" value="5000" oninput="document.getElementById('priceVal').textContent='₹'+this.value">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-400)"><span>₹0</span><span id="priceVal">₹5,000</span><span>₹10,000</span></div>
+          <div class="price-inputs">
+            <input class="price-input" type="text" placeholder="Min" value="0"/>
+            <span style="align-self:center;color:var(--gray-400)">–</span>
+            <input class="price-input" type="text" placeholder="Max" value="5000"/>
+          </div>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Brand -->
+      <div class="filter-group">
+        <div class="filter-label">Brand <span class="filter-toggle">▾</span></div>
+        <div class="filter-options">
+          <label class="filter-check"><input type="checkbox" checked onchange="updateFilters()"> FB Apparel</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Nike</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Adidas</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Puma</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> Levi's</label>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Rating -->
+      <div class="filter-group">
+        <div class="filter-label">Customer Rating <span class="filter-toggle">▾</span></div>
+        <div class="filter-options" style="gap:2px;">
+          <label class="rating-option"><input type="radio" name="rating" onchange="updateFilters()"> <span class="stars-row">★★★★★</span> 5 only</label>
+          <label class="rating-option"><input type="radio" name="rating" checked onchange="updateFilters()"> <span class="stars-row">★★★★</span> 4 & above</label>
+          <label class="rating-option"><input type="radio" name="rating" onchange="updateFilters()"> <span class="stars-row">★★★</span> 3 & above</label>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Size -->
+      <div class="filter-group">
+        <div class="filter-label">Size</div>
+        <div class="size-grid">
+          <div class="size-btn" onclick="toggleSize(this)">XS</div>
+          <div class="size-btn active" onclick="toggleSize(this)">S</div>
+          <div class="size-btn active" onclick="toggleSize(this)">M</div>
+          <div class="size-btn" onclick="toggleSize(this)">L</div>
+          <div class="size-btn" onclick="toggleSize(this)">XL</div>
+          <div class="size-btn" onclick="toggleSize(this)">XXL</div>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Color -->
+      <div class="filter-group">
+        <div class="filter-label">Color</div>
+        <div class="color-grid">
+          <div class="color-dot active" style="background:#0f1f3d;" title="Navy" onclick="toggleColor(this)"></div>
+          <div class="color-dot" style="background:#fff;border:1.5px solid #ddd;" title="White" onclick="toggleColor(this)"></div>
+          <div class="color-dot" style="background:#dc2626;" title="Red" onclick="toggleColor(this)"></div>
+          <div class="color-dot" style="background:#2563eb;" title="Blue" onclick="toggleColor(this)"></div>
+          <div class="color-dot" style="background:#16a34a;" title="Green" onclick="toggleColor(this)"></div>
+          <div class="color-dot" style="background:#1f2937;" title="Black" onclick="toggleColor(this)"></div>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <!-- Discount -->
+      <div class="filter-group">
+        <div class="filter-label">Discount</div>
+        <div class="filter-options">
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> 10% or more</label>
+          <label class="filter-check"><input type="checkbox" checked onchange="updateFilters()"> 30% or more</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> 50% or more</label>
+          <label class="filter-check"><input type="checkbox" onchange="updateFilters()"> 70% or more</label>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <!-- SORT BAR -->
+    <div class="sort-bar">
+      <div class="results-count">Showing <span>248</span> results for "Fashion"</div>
+      <div class="sort-right">
+        <span class="sort-label">Sort by:</span>
+        <select class="sort-select" onchange="showToast('🔄 Results sorted!')">
+          <option>Relevance</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest First</option>
+          <option>Best Rated</option>
+          <option>Most Popular</option>
+        </select>
+        <div class="view-toggle">
+          <div class="view-btn active" onclick="setView('grid', this)" title="Grid view">▦</div>
+          <div class="view-btn" onclick="setView('list', this)" title="List view">≡</div>
+        </div>
+      </div>
+    </div>
+    <!-- ACTIVE FILTERS -->
+    <div class="active-filters" id="activeFilters">
+      <div class="filter-pill">Fashion <span class="remove" onclick="this.parentElement.remove()">✕</span></div>
+      <div class="filter-pill">FB Apparel <span class="remove" onclick="this.parentElement.remove()">✕</span></div>
+      <div class="filter-pill">Size: M <span class="remove" onclick="this.parentElement.remove()">✕</span></div>
+      <div class="filter-pill">30%+ Off <span class="remove" onclick="this.parentElement.remove()">✕</span></div>
+      <div class="filter-pill">4★ & above <span class="remove" onclick="this.parentElement.remove()">✕</span></div>
+    </div>
+    <!-- PRODUCTS GRID -->
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-new">NEW</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/shirt.jpg" alt="Men's Casual Shirt" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Apparel</div>
+          <div class="pc-name">Men's Premium Casual Shirt</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (238)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,299</span><span class="pc-old">₹2,499</span><span class="pc-off">48% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery Tomorrow</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-hot">HOT</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/dress.jpg" alt="Floral Dress" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Women</div>
+          <div class="pc-name">Women's Floral Summer Dress</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (512)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,599</span><span class="pc-old">₹2,799</span><span class="pc-off">43% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery in 2 Days</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/jeans.jpg" alt="Slim Fit Jeans" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Denim</div>
+          <div class="pc-name">Slim Fit Stretch Jeans</div>
+          <div class="pc-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.6 (184)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,899</span><span class="pc-old">₹3,499</span><span class="pc-off">46% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery Tomorrow</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-sale">SALE</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/jacket.jpg" alt="Winter Jacket" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Sport</div>
+          <div class="pc-name">Premium Winter Jacket</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.7 (94)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹2,499</span><span class="pc-old">₹4,999</span><span class="pc-off">50% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery in 2 Days</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-top">TOP</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/shoes.jpg" alt="Running Shoes" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Sport</div>
+          <div class="pc-name">Pro Running Shoes Air Cushion</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (703)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹2,199</span><span class="pc-old">₹3,999</span><span class="pc-off">45% OFF</span></div>
+          <div class="pc-delivery">✅ Free Express Delivery</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/sports-shoes.jpg" alt="Sports Shoes" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Sport</div>
+          <div class="pc-name">Athletic Sports Training Shoes</div>
+          <div class="pc-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.5 (321)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,799</span><span class="pc-old">₹2,999</span><span class="pc-off">40% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery Tomorrow</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-new">NEW</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/handbag.jpg" alt="Handbag" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Bags</div>
+          <div class="pc-name">Premium Designer Handbag</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (156)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹3,299</span><span class="pc-old">₹5,999</span><span class="pc-off">45% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery in 3 Days</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/sunglasses.jpg" alt="Sunglasses" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Eyewear</div>
+          <div class="pc-name">Polarized UV400 Sunglasses</div>
+          <div class="pc-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.4 (89)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹899</span><span class="pc-old">₹1,799</span><span class="pc-off">50% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery Tomorrow</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-sale">SALE</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/watch.jpg" alt="Smart Watch" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Tech</div>
+          <div class="pc-name">Smart Watch Pro Series 5</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (1024)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹2,699</span><span class="pc-old">₹5,999</span><span class="pc-off">55% OFF</span></div>
+          <div class="pc-delivery">✅ Free Express Delivery</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/perfume.jpg" alt="Perfume" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Beauty</div>
+          <div class="pc-name">Luxury Eau de Parfum 100ml</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (347)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,499</span><span class="pc-old">₹2,999</span><span class="pc-off">50% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery in 2 Days</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-badges"><span class="badge-tag badge-hot">HOT</span></div>
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/skincare.jpg" alt="Skincare" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Beauty</div>
+          <div class="pc-name">Organic Skincare Gift Set</div>
+          <div class="pc-rating"><span class="stars">★★★★★</span><span class="rating-num">4.7 (412)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,499</span><span class="pc-old">₹2,499</span><span class="pc-off">40% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery Tomorrow</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wish-btn" onclick="toggleWish(this)">🤍</button>
+        <div class="pc-img"><img src="images/products/backpack.jpg" alt="Backpack" loading="lazy"/><div class="pc-quick" onclick="addToCart(this)">⚡ Quick Add</div></div>
+        <div class="pc-body">
+          <div class="pc-brand">FB Bags</div>
+          <div class="pc-name">15.6" Waterproof Laptop Backpack</div>
+          <div class="pc-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.6 (289)</span></div>
+          <div class="pc-pricing"><span class="pc-price">₹1,799</span><span class="pc-old">₹2,999</span><span class="pc-off">40% OFF</span></div>
+          <div class="pc-delivery">✅ Free Delivery in 2 Days</div>
+          <div class="pc-footer"><button class="btn-cart" onclick="addToCart(this)">🛒 Add to Cart</button></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="pg-btn prev-next">‹ Prev</div>
+      <div class="pg-btn active">1</div>
+      <div class="pg-btn" onclick="this.parentElement.querySelectorAll('.pg-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">2</div>
+      <div class="pg-btn" onclick="this.parentElement.querySelectorAll('.pg-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">3</div>
+      <div class="pg-btn">…</div>
+      <div class="pg-btn" onclick="this.parentElement.querySelectorAll('.pg-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">21</div>
+      <div class="pg-btn prev-next">Next ›</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><img src="logo.png" alt="Finch Brothers"/></div>
+      <div class="footer-desc">Your one-stop destination for fashion, electronics, home essentials and more.</div>
+      <div class="social-row">
+        <div class="s-btn">📸</div><div class="s-btn">👥</div><div class="s-btn">🐦</div><div class="s-btn">▶️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Shop</div>
+      <ul class="footer-links">
+        <li><a href="products.html">Fashion</a></li><li><a href="products.html">Footwear</a></li>
+        <li><a href="products.html">Bags</a></li><li><a href="products.html">Electronics</a></li>
+        <li><a href="products.html">Home & Decor</a></li><li><a href="products.html">Kitchen</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Help Center</a></li><li><a href="track.html">Track Order</a></li>
+        <li><a href="#">Returns</a></li><li><a href="#">Shipping Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Account</div>
+      <ul class="footer-links">
+        <li><a href="auth.html">Login / Register</a></li><li><a href="dashboard.html">My Orders</a></li>
+        <li><a href="dashboard.html">Wishlist</a></li><li><a href="dashboard.html">Profile</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Finch Brothers Pvt. Ltd. All rights reserved.</span>
+    <div class="pay-icons"><div class="pay-icon">VISA</div><div class="pay-icon">MC</div><div class="pay-icon">UPI</div><div class="pay-icon">COD</div></div>
+  </div>
+</footer>
+<div class="toast" id="toast">✅ Done!</div>
+
+<script>
+let cartCount=3;
+function addToCart(el){
+  cartCount++;
+  const btn=el.closest('.product-card')?.querySelector('.btn-cart')||el;
+  if(btn.classList.contains('btn-cart')){
+    const orig=btn.innerHTML;btn.classList.add('added');btn.innerHTML='✓ Added!';
+    setTimeout(()=>{btn.classList.remove('added');btn.innerHTML=orig;},2000);
+  }
+  showToast('🛒 Added to cart!');
+}
+function toggleWish(btn){
+  const a=btn.classList.toggle('active');
+  btn.textContent=a?'❤️':'🤍';
+  showToast(a?'❤️ Added to Wishlist!':'🤍 Removed from Wishlist');
+}
+function toggleSize(btn){btn.classList.toggle('active');}
+function toggleColor(dot){document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));dot.classList.add('active');}
+function clearFilters(){showToast('🔄 All filters cleared!');}
+function updateFilters(){showToast('✅ Filter applied!');}
+function setView(type,btn){
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const g=document.getElementById('productsGrid');
+  g.style.gridTemplateColumns=type==='list'?'1fr':'repeat(4,1fr)';
+  showToast(type==='list'?'📋 List view':'▦ Grid view');
+}
+let toastT;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2500);
+}
+// Scroll animation
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.product-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .4s ease,transform .4s ease';obs.observe(el);});
+</script>
+</body>
+</html>

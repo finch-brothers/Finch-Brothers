@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>My Dashboard – Finch Brothers</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --navy:#0f1f3d;--navy-dark:#0a1628;--navy-light:#1a3560;
+  --gold:#e8a020;--gold-light:#f5b942;
+  --radius:12px;--radius-lg:18px;
+  --shadow-lg:0 8px 32px rgba(0,0,0,.14);
+  --transition:.25s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f4f6fb;color:#111;min-height:100vh}
+
+/* ── HEADER ── */
+header{
+  background:var(--navy-dark);padding:0 40px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.2);
+}
+.h-logo img{height:38px;filter:brightness(0) invert(1)}
+.h-nav{display:flex;align-items:center;gap:28px}
+.h-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.88rem;font-weight:500;transition:var(--transition)}
+.h-nav a:hover{color:#fff}
+.h-cart{
+  background:var(--gold);color:var(--navy-dark);padding:8px 18px;border-radius:8px;
+  font-weight:700;font-size:.85rem;cursor:pointer;border:none;text-decoration:none;
+  display:flex;align-items:center;gap:8px;transition:var(--transition);
+}
+.h-cart:hover{background:var(--gold-light);transform:translateY(-1px)}
+
+/* ── LAYOUT ── */
+.dashboard-wrap{display:flex;max-width:1280px;margin:0 auto;padding:32px 24px;gap:28px;align-items:flex-start}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:260px;flex-shrink:0;background:#fff;border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);overflow:hidden;position:sticky;top:80px;
+}
+.user-card{background:var(--navy-dark);padding:28px 24px;text-align:center}
+.user-avatar{
+  width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--navy-light),var(--gold));
+  display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+  margin:0 auto 14px;border:3px solid rgba(232,160,32,.4);
+}
+.user-name{color:#fff;font-size:1rem;font-weight:700;margin-bottom:4px}
+.user-email{color:rgba(255,255,255,.5);font-size:.78rem;margin-bottom:14px}
+.plus-badge{
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  color:var(--navy-dark);padding:4px 14px;border-radius:20px;font-size:.75rem;
+  font-weight:800;display:inline-flex;align-items:center;gap:5px;
+}
+
+.sidebar-nav{padding:12px 0}
+.nav-item{
+  display:flex;align-items:center;gap:14px;padding:13px 24px;
+  cursor:pointer;transition:var(--transition);font-size:.88rem;font-weight:500;color:#374151;
+  border-left:3px solid transparent;
+}
+.nav-item:hover{background:#f4f6fb;color:var(--navy)}
+.nav-item.active{background:rgba(15,31,61,.06);color:var(--navy);font-weight:700;border-left-color:var(--gold)}
+.nav-item .ni-icon{width:22px;text-align:center;font-size:1.1rem}
+.nav-divider{height:1px;background:#f0f0f0;margin:6px 16px}
+
+/* ── MAIN CONTENT ── */
+.main-content{flex:1;min-width:0}
+.page-title{font-size:1.5rem;font-weight:800;color:var(--navy-dark);margin-bottom:20px}
+
+/* Content views */
+.content-view{display:none}
+.content-view.active{display:block}
+
+/* ── ORDER FILTER TABS ── */
+.filter-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filter-tab{
+  padding:8px 20px;border-radius:20px;border:1.5px solid #e5e7eb;
+  background:#fff;font-family:inherit;font-size:.84rem;font-weight:600;color:#6b7280;
+  cursor:pointer;transition:var(--transition);
+}
+.filter-tab.active,.filter-tab:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── ORDER CARD ── */
+.order-card{
+  background:#fff;border-radius:var(--radius-lg);box-shadow:0 2px 12px rgba(0,0,0,.06);
+  margin-bottom:20px;overflow:hidden;border:1px solid #f0f0f0;
+  transition:var(--transition);
+}
+.order-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.oc-header{
+  display:flex;align-items:center;justify-content:space-between;padding:16px 20px;
+  border-bottom:1px solid #f0f0f0;background:#fafafa;
+}
+.oc-id{font-size:.82rem;font-weight:700;color:var(--navy);cursor:pointer;
+  display:flex;align-items:center;gap:6px}
+.oc-id:hover{color:var(--gold)}
+.oc-date{font-size:.78rem;color:#9ca3af}
+.status-badge{
+  padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:700;
+}
+.s-delivered{background:#d1fae5;color:#065f46}
+.s-shipped{background:#dbeafe;color:#1e40af}
+.s-processing{background:#fef9c3;color:#854d0e}
+.s-cancelled{background:#fee2e2;color:#991b1b}
+
+.oc-body{padding:20px}
+.oc-product{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.oc-img{width:80px;height:80px;border-radius:var(--radius);object-fit:cover;border:1px solid #f0f0f0}
+.oc-info h4{font-size:.92rem;font-weight:700;color:#111;margin-bottom:4px}
+.oc-info p{font-size:.8rem;color:#6b7280}
+.oc-total{margin-left:auto;text-align:right}
+.oc-total .amount{font-size:1.1rem;font-weight:800;color:var(--navy-dark)}
+.oc-total .qty{font-size:.78rem;color:#9ca3af}
+
+/* Timeline stepper */
+.timeline{display:flex;align-items:center;margin-bottom:18px;padding:0 4px}
+.step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.step:not(:last-child)::after{
+  content:'';position:absolute;top:12px;left:50%;width:100%;height:2px;
+  background:#e5e7eb;z-index:0;
+}
+.step.done:not(:last-child)::after{background:var(--gold)}
+.step-dot{
+  width:24px;height:24px;border-radius:50%;background:#e5e7eb;z-index:1;
+  display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;
+  font-weight:700;flex-shrink:0;
+}
+.step.done .step-dot{background:#22c55e}
+.step.active .step-dot{background:var(--gold);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,.6)}50%{box-shadow:0 0 0 8px rgba(232,160,32,0)}}
+.step-label{font-size:.65rem;color:#9ca3af;margin-top:6px;text-align:center;font-weight:500}
+.step.done .step-label{color:#374151}
+.step.active .step-label{color:var(--gold);font-weight:700}
+
+/* OC actions */
+.oc-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-track{
+  padding:9px 18px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);
+  font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:6px;text-decoration:none;transition:var(--transition);
+}
+.btn-track:hover{background:var(--navy-light);transform:translateY(-1px)}
+.btn-outline{
+  padding:9px 18px;background:#fff;color:var(--navy);border:1.5px solid #e5e7eb;
+  border-radius:var(--radius);font-family:inherit;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:var(--transition);
+}
+.btn-outline:hover{border-color:var(--navy);background:#f4f6fb}
+.btn-return{color:#ef4444;border-color:#fecaca}
+.btn-return:hover{background:#fff5f5;border-color:#ef4444}
+
+/* ── WISHLIST ── */
+.wish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.wish-card{
+  background:#fff;border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #f0f0f0;
+  transition:var(--transition);position:relative;
+}
+.wish-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.wish-img{width:100%;height:180px;object-fit:cover}
+.wish-body{padding:14px}
+.wish-name{font-size:.88rem;font-weight:700;color:#111;margin-bottom:4px}
+.wish-price{font-size:1rem;font-weight:800;color:var(--navy-dark);margin-bottom:12px}
+.wish-del{
+  position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
+  background:#fff;border:none;cursor:pointer;display:grid;place-items:center;
+  color:#ef4444;font-size:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:var(--transition);
+}
+.wish-del:hover{background:#fee2e2}
+.btn-add-cart{
+  width:100%;padding:10px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);
+  font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:var(--transition);
+}
+.btn-add-cart:hover{background:var(--gold);color:var(--navy-dark)}
+
+/* ── PROFILE ── */
+.profile-section{background:#fff;border-radius:var(--radius-lg);padding:28px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.profile-section h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #f0f0f0}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pf-group{display:flex;flex-direction:column;gap:6px}
+.pf-group label{font-size:.8rem;font-weight:600;color:#374151}
+.pf-group input,.pf-group select{
+  padding:11px 14px;border:1.5px solid #e5e7eb;border-radius:var(--radius);
+  font-family:inherit;font-size:.88rem;outline:none;transition:var(--transition);
+}
+.pf-group input:focus,.pf-group select:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(15,31,61,.08)}
+.photo-upload{
+  border:2px dashed #e5e7eb;border-radius:var(--radius-lg);padding:32px;
+  text-align:center;cursor:pointer;transition:var(--transition);
+}
+.photo-upload:hover{border-color:var(--navy);background:#f4f6fb}
+.photo-upload .pu-avatar{font-size:3rem;margin-bottom:12px}
+.photo-upload p{font-size:.85rem;color:#6b7280}
+.photo-upload span{color:var(--navy);font-weight:700}
+.btn-save{
+  padding:13px 32px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);
+  font-family:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:var(--transition);
+}
+.btn-save:hover{background:var(--navy-light);transform:translateY(-1px)}
+
+/* strength */
+.pass-strength{height:4px;border-radius:4px;background:#e5e7eb;margin-top:6px}
+.ps-fill{height:100%;width:0;border-radius:4px;transition:width .4s,background .4s}
+
+/* ── FOOTER ── */
+footer{background:var(--navy-dark);color:rgba(255,255,255,.7);padding:60px 40px 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1280px;margin:0 auto 40px}
+.footer-brand img{height:40px;filter:brightness(0) invert(1);margin-bottom:16px}
+.footer-brand p{font-size:.85rem;line-height:1.7;color:rgba(255,255,255,.5);max-width:280px}
+.social-links{display:flex;gap:10px;margin-top:18px}
+.social-links a{
+  width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);
+  display:grid;place-items:center;color:rgba(255,255,255,.6);text-decoration:none;
+  transition:var(--transition);font-size:.85rem;
+}
+.social-links a:hover{background:var(--gold);color:var(--navy-dark)}
+.footer-col h4{color:#fff;font-size:.88rem;font-weight:700;margin-bottom:16px;letter-spacing:.3px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.83rem;transition:var(--transition)}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{max-width:1280px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.35)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .dashboard-wrap{flex-direction:column}
+  .sidebar{width:100%;position:static}
+  .sidebar-nav{display:flex;overflow-x:auto;gap:4px;padding:10px 12px}
+  .nav-item{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;padding:10px 16px}
+  .nav-item.active{border-bottom-color:var(--gold);border-left:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  header{padding:0 16px}
+  .h-nav{gap:14px}
+  .h-nav a{display:none}
+  .dashboard-wrap{padding:16px 12px}
+  .pf-grid{grid-template-columns:1fr}
+  .wish-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  footer{padding:40px 20px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <a href="index.html" class="h-logo"><img src="logo.png" alt="Finch Brothers"/></a>
+  <nav class="h-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span style="background:var(--gold);color:var(--navy-dark);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800">3</span></a>
+    <a href="auth.html" class="h-cart"><i class="fas fa-user"></i> Account</a>
+  </nav>
+</header>
+
+<!-- ══ DASHBOARD ══ -->
+<div class="dashboard-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="user-card">
+      <div class="user-avatar">👤</div>
+      <div class="user-name">Rahul Sharma</div>
+      <div class="user-email">rahul.sharma@email.com</div>
+      <div class="plus-badge"><i class="fas fa-crown"></i> FB Plus Member</div>
+    </div>
+    <nav class="sidebar-nav" id="sideNav">
+      <div class="nav-item active" data-view="orders" onclick="switchTab(this,'orders')">
+        <span class="ni-icon">📦</span> My Orders
+      </div>
+      <div class="nav-item" data-view="wishlist" onclick="switchTab(this,'wishlist')">
+        <span class="ni-icon">❤️</span> My Wishlist
+      </div>
+      <div class="nav-item" data-view="addresses" onclick="switchTab(this,'addresses')">
+        <span class="ni-icon">📍</span> Saved Addresses
+      </div>
+      <div class="nav-item" data-view="payments" onclick="switchTab(this,'payments')">
+        <span class="ni-icon">💳</span> Payments
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" data-view="profile" onclick="switchTab(this,'profile')">
+        <span class="ni-icon">👤</span> Profile Settings
+      </div>
+      <div class="nav-item" data-view="notifications" onclick="switchTab(this,'notifications')">
+        <span class="ni-icon">🔔</span> Notifications
+      </div>
+      <div class="nav-item" data-view="coupons" onclick="switchTab(this,'coupons')">
+        <span class="ni-icon">🎁</span> Coupons & Offers
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" onclick="window.location.href='auth.html'" style="color:#ef4444">
+        <span class="ni-icon">🚪</span> Logout
+      </div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- ── ORDERS VIEW ── -->
+    <div class="content-view active" id="view-orders">
+      <h2 class="page-title">📦 My Orders</h2>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterOrders(this,'all')">All Orders</button>
+        <button class="filter-tab" onclick="filterOrders(this,'active')">Active</button>
+        <button class="filter-tab" onclick="filterOrders(this,'delivered')">Delivered</button>
+        <button class="filter-tab" onclick="filterOrders(this,'cancelled')">Cancelled</button>
+      </div>
+
+      <!-- Order 1 -->
+      <div class="order-card" data-status="active">
+        <div class="oc-header">
+          <div>
+            <div class="oc-id" onclick="copyId('FB-2025-18742')"><i class="fas fa-copy"></i> #FB-2025-18742</div>
+            <div class="oc-date">Placed on Oct 15, 2025</div>
+          </div>
+          <span class="status-badge s-shipped">Shipped 🚚</span>
+        </div>
+        <div class="oc-body">
+          <div class="oc-product">
+            <img class="oc-img" src="images/products/shirt.jpg" alt="Classic Shirt"/>
+            <div class="oc-info">
+              <h4>Classic Oxford Shirt</h4>
+              <p>Size: M · Color: White</p>
+              <p>Qty: 2</p>
+            </div>
+            <div class="oc-total"><div class="amount">₹1,498</div><div class="qty">Paid Online</div></div>
+          </div>
+          <div class="timeline">
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Placed</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Confirmed</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Packed</div></div>
+            <div class="step active"><div class="step-dot"><i class="fas fa-truck"></i></div><div class="step-label">Shipped</div></div>
+            <div class="step"><div class="step-dot">5</div><div class="step-label">Delivered</div></div>
+          </div>
+          <div class="oc-actions">
+            <a href="track.html" class="btn-track"><i class="fas fa-map-marker-alt"></i> Track Order</a>
+            <button class="btn-outline">📞 Contact Support</button>
+            <button class="btn-outline btn-return">Cancel Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 2 -->
+      <div class="order-card" data-status="delivered">
+        <div class="oc-header">
+          <div>
+            <div class="oc-id" onclick="copyId('FB-2025-17301')"><i class="fas fa-copy"></i> #FB-2025-17301</div>
+            <div class="oc-date">Placed on Oct 8, 2025</div>
+          </div>
+          <span class="status-badge s-delivered">Delivered ✅</span>
+        </div>
+        <div class="oc-body">
+          <div class="oc-product">
+            <img class="oc-img" src="images/products/shoes.jpg" alt="Sneakers"/>
+            <div class="oc-info"><h4>Urban Stride Sneakers</h4><p>Size: 42 · Color: Black</p><p>Qty: 1</p></div>
+            <div class="oc-total"><div class="amount">₹3,299</div><div class="qty">Cash on Delivery</div></div>
+          </div>
+          <div class="timeline">
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Placed</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Confirmed</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Packed</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Shipped</div></div>
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Delivered</div></div>
+          </div>
+          <div class="oc-actions">
+            <a href="track.html" class="btn-track"><i class="fas fa-map-marker-alt"></i> Track Order</a>
+            <button class="btn-outline">⭐ Rate Product</button>
+            <button class="btn-outline btn-return">Return / Exchange</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 3 -->
+      <div class="order-card" data-status="active">
+        <div class="oc-header">
+          <div>
+            <div class="oc-id" onclick="copyId('FB-2025-16890')"><i class="fas fa-copy"></i> #FB-2025-16890</div>
+            <div class="oc-date">Placed on Oct 3, 2025</div>
+          </div>
+          <span class="status-badge s-processing">Processing ⏳</span>
+        </div>
+        <div class="oc-body">
+          <div class="oc-product">
+            <img class="oc-img" src="images/products/earbuds.jpg" alt="Earbuds"/>
+            <div class="oc-info"><h4>Pro Bass Wireless Earbuds</h4><p>Color: Midnight Black</p><p>Qty: 1</p></div>
+            <div class="oc-total"><div class="amount">₹2,499</div><div class="qty">UPI Payment</div></div>
+          </div>
+          <div class="timeline">
+            <div class="step done"><div class="step-dot"><i class="fas fa-check"></i></div><div class="step-label">Placed</div></div>
+            <div class="step active"><div class="step-dot"><i class="fas fa-cog fa-spin"></i></div><div class="step-label">Confirmed</div></div>
+            <div class="step"><div class="step-dot">3</div><div class="step-label">Packed</div></div>
+            <div class="step"><div class="step-dot">4</div><div class="step-label">Shipped</div></div>
+            <div class="step"><div class="step-dot">5</div><div class="step-label">Delivered</div></div>
+          </div>
+          <div class="oc-actions">
+            <a href="track.html" class="btn-track"><i class="fas fa-map-marker-alt"></i> Track Order</a>
+            <button class="btn-outline">📞 Contact Support</button>
+            <button class="btn-outline btn-return">Cancel Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 4 -->
+      <div class="order-card" data-status="cancelled">
+        <div class="oc-header">
+          <div>
+            <div class="oc-id" onclick="copyId('FB-2025-15540')"><i class="fas fa-copy"></i> #FB-2025-15540</div>
+            <div class="oc-date">Placed on Sep 22, 2025</div>
+          </div>
+          <span class="status-badge s-cancelled">Cancelled ❌</span>
+        </div>
+        <div class="oc-body">
+          <div class="oc-product">
+            <img class="oc-img" src="images/products/watch.jpg" alt="Watch"/>
+            <div class="oc-info"><h4>Luxury Chronograph Watch</h4><p>Strap: Leather · Color: Brown</p><p>Qty: 1</p></div>
+            <div class="oc-total"><div class="amount">₹4,999</div><div class="qty">Refunded</div></div>
+          </div>
+          <div class="oc-actions">
+            <button class="btn-outline">📄 View Invoice</button>
+            <a href="products.html" class="btn-track" style="text-decoration:none"><i class="fas fa-redo"></i> Reorder</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── WISHLIST VIEW ── -->
+    <div class="content-view" id="view-wishlist">
+      <h2 class="page-title">❤️ My Wishlist</h2>
+      <div class="wish-grid">
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/dress.jpg" alt="Dress"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">Floral Summer Dress</div>
+            <div class="wish-price">₹1,299</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/backpack.jpg" alt="Backpack"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">Premium Travel Backpack</div>
+            <div class="wish-price">₹2,499</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/camera.jpg" alt="Camera"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">DSLR Camera Kit</div>
+            <div class="wish-price">₹34,999</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/perfume.jpg" alt="Perfume"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">Oud Premium Perfume</div>
+            <div class="wish-price">₹1,899</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/lamp.jpg" alt="Lamp"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">Nordic Study Lamp</div>
+            <div class="wish-price">₹999</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="wish-card">
+          <img class="wish-img" src="images/products/sunglasses.jpg" alt="Sunglasses"/>
+          <button class="wish-del" onclick="removeWish(this)"><i class="fas fa-times"></i></button>
+          <div class="wish-body">
+            <div class="wish-name">Polarized Aviators</div>
+            <div class="wish-price">₹699</div>
+            <button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE VIEW ── -->
+    <div class="content-view" id="view-profile">
+      <h2 class="page-title">👤 Profile Settings</h2>
+      <div class="profile-section">
+        <h3><i class="fas fa-camera" style="color:var(--gold);margin-right:8px"></i>Profile Photo</h3>
+        <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+          <input type="file" id="photoInput" style="display:none" accept="image/*" onchange="previewPhoto(this)"/>
+          <div class="pu-avatar" id="photoPreview">👤</div>
+          <p><span>Click to upload</span> or drag & drop</p>
+          <p style="font-size:.75rem;margin-top:4px">JPG, PNG up to 5MB</p>
+        </div>
+      </div>
+      <div class="profile-section">
+        <h3><i class="fas fa-user" style="color:var(--gold);margin-right:8px"></i>Personal Information</h3>
+        <div class="pf-grid">
+          <div class="pf-group"><label>Full Name</label><input type="text" value="Rahul Sharma"/></div>
+          <div class="pf-group"><label>Email Address</label><input type="email" value="rahul.sharma@email.com"/></div>
+          <div class="pf-group"><label>Mobile Number</label><input type="tel" value="+91 98765 43210"/></div>
+          <div class="pf-group"><label>Date of Birth</label><input type="date" value="1995-06-15"/></div>
+          <div class="pf-group"><label>Gender</label>
+            <select><option>Male</option><option>Female</option><option>Other</option></select>
+          </div>
+        </div>
+        <div style="margin-top:20px"><button class="btn-save" onclick="saveProfile()"><i class="fas fa-save" style="margin-right:8px"></i>Save Changes</button></div>
+      </div>
+      <div class="profile-section">
+        <h3><i class="fas fa-lock" style="color:var(--gold);margin-right:8px"></i>Change Password</h3>
+        <div class="pf-grid">
+          <div class="pf-group"><label>Current Password</label><input type="password" placeholder="Enter current password"/></div>
+          <div class="pf-group"><label>New Password</label><input type="password" placeholder="Enter new password" oninput="pfStrength(this)"/>
+            <div class="pass-strength"><div class="ps-fill" id="pfFill"></div></div>
+          </div>
+          <div class="pf-group"><label>Confirm New Password</label><input type="password" placeholder="Confirm new password"/></div>
+        </div>
+        <div style="margin-top:20px"><button class="btn-save" onclick="savePass()"><i class="fas fa-key" style="margin-right:8px"></i>Update Password</button></div>
+      </div>
+    </div>
+
+    <!-- ── PLACEHOLDER VIEWS ── -->
+    <div class="content-view" id="view-addresses">
+      <h2 class="page-title">📍 Saved Addresses</h2>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:40px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="font-size:3rem;margin-bottom:12px">📍</div>
+        <h3 style="color:var(--navy-dark);margin-bottom:8px">1 Saved Address</h3>
+        <p style="color:#6b7280;margin-bottom:20px">102 MG Road, Koramangala, Bengaluru – 560034, Karnataka</p>
+        <button class="btn-save"><i class="fas fa-plus" style="margin-right:6px"></i>Add New Address</button>
+      </div>
+    </div>
+    <div class="content-view" id="view-payments">
+      <h2 class="page-title">💳 Payment Methods</h2>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:40px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="font-size:3rem;margin-bottom:12px">💳</div>
+        <h3 style="color:var(--navy-dark);margin-bottom:8px">No saved payment methods</h3>
+        <p style="color:#6b7280;margin-bottom:20px">Add a card or UPI ID for faster checkout</p>
+        <button class="btn-save"><i class="fas fa-plus" style="margin-right:6px"></i>Add Payment Method</button>
+      </div>
+    </div>
+    <div class="content-view" id="view-notifications">
+      <h2 class="page-title">🔔 Notifications</h2>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f0f0f0">
+          <div><div style="font-weight:600;font-size:.9rem">Your order #FB-2025-18742 has been shipped!</div><div style="font-size:.78rem;color:#9ca3af;margin-top:3px">2 hours ago</div></div>
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f0f0f0">
+          <div><div style="font-weight:600;font-size:.9rem">🎉 Flash Sale! Up to 70% off – Today only</div><div style="font-size:.78rem;color:#9ca3af;margin-top:3px">Yesterday</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0">
+          <div><div style="font-weight:600;font-size:.9rem">Your review has been published. Thank you!</div><div style="font-size:.78rem;color:#9ca3af;margin-top:3px">Oct 10, 2025</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="content-view" id="view-coupons">
+      <h2 class="page-title">🎁 Coupons & Offers</h2>
+      <div style="display:grid;gap:16px">
+        <div style="background:#fff;border-radius:var(--radius-lg);padding:20px 24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:2px dashed var(--gold);display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--navy-dark);letter-spacing:1px">FIRST50</div>
+            <div style="font-size:.83rem;color:#6b7280;margin-top:4px">50% off on your next order (max ₹500)</div>
+          </div>
+          <button style="padding:9px 18px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);font-family:inherit;font-weight:700;cursor:pointer;font-size:.83rem" onclick="copyCoupon('FIRST50')">Copy</button>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius-lg);padding:20px 24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:2px dashed #22c55e;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--navy-dark);letter-spacing:1px">FBPLUS20</div>
+            <div style="font-size:.83rem;color:#6b7280;margin-top:4px">Exclusive 20% off for FB Plus members</div>
+          </div>
+          <button style="padding:9px 18px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);font-family:inherit;font-weight:700;cursor:pointer;font-size:.83rem" onclick="copyCoupon('FBPLUS20')">Copy</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Finch Brothers"/>
+      <p>Quality You Can Trust. Value You'll Love. Your one-stop destination for fashion, electronics, and more.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="checkout.html">Checkout</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>My Account</h4><ul>
+      <li><a href="auth.html">Login / Register</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="track.html">Track Order</a></li>
+      <li><a href="#">Wishlist</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Help</h4><ul>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Return Policy</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Finch Brothers. All rights reserved.</p>
+    <p>Made with ❤️ in India</p>
+  </div>
+</footer>
+
+<script>
+function switchTab(el, viewId){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.content-view').forEach(v=>v.classList.remove('active'));
+  el.classList.add('active');
+  const view=document.getElementById('view-'+viewId);
+  if(view)view.classList.add('active');
+}
+function filterOrders(btn, status){
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.order-card').forEach(card=>{
+    if(status==='all'||card.dataset.status===status){card.style.display='block';}
+    else{card.style.display='none';}
+  });
+}
+function copyId(id){
+  navigator.clipboard?.writeText(id);
+  const el=event.target.closest('.oc-id');
+  const orig=el.innerHTML;
+  el.innerHTML='<i class="fas fa-check" style="color:#22c55e"></i> Copied!';
+  setTimeout(()=>el.innerHTML=orig,1500);
+}
+function removeWish(btn){
+  if(confirm('Remove from wishlist?')){btn.closest('.wish-card').remove();}
+}
+function saveProfile(){
+  const btn=event.target;
+  btn.textContent='✅ Saved!';
+  setTimeout(()=>btn.innerHTML='<i class="fas fa-save" style="margin-right:8px"></i>Save Changes',2000);
+}
+function savePass(){
+  const btn=event.target;
+  btn.textContent='✅ Password Updated!';
+  setTimeout(()=>btn.innerHTML='<i class="fas fa-key" style="margin-right:8px"></i>Update Password',2000);
+}
+function pfStrength(inp){
+  const pw=inp.value;let s=0;
+  if(pw.length>=8)s++;if(/[A-Z]/.test(pw))s++;if(/[0-9]/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;
+  const fill=document.getElementById('pfFill');
+  const cols=['#ef4444','#f97316','#eab308','#22c55e'];
+  fill.style.width=(s*25)+'%';fill.style.background=cols[s-1]||'#e5e7eb';
+}
+function previewPhoto(inp){
+  if(inp.files&&inp.files[0]){
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const prev=document.getElementById('photoPreview');
+      prev.innerHTML=`<img src="${e.target.result}" style="width:80px;height:80px;border-radius:50%;object-fit:cover"/>`;
+    };
+    reader.readAsDataURL(inp.files[0]);
+  }
+}
+function copyCoupon(code){
+  navigator.clipboard?.writeText(code);
+  alert(`Coupon "${code}" copied to clipboard!`);
+}
+</script>
+</body>
+</html>
