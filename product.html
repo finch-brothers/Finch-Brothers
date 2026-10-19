@@ -1273,7 +1273,7 @@
     <div class="top-bar-left">
       <a href="#"><i class="fas fa-map-marker-alt"></i> Store Locator</a>
       <a href="track.html"><i class="fas fa-truck"></i> Track Order</a>
-      <a href="#"><i class="fas fa-headset"></i> Help Center</a>
+      <a href="index.html"><i class="fas fa-headset"></i> Help Center</a>
     </div>
     <div class="top-bar-right">
       <a href="#"><i class="fas fa-tag"></i> Sell on Finch Brothers</a>
@@ -1376,8 +1376,8 @@
       <a class="nav-link" href="products.html">Bags</a>
     </div>
     <div class="nav-promo">
-      <a href="#">🔥 Today's Deals</a>
-      <a href="#">⚡ Flash Sale</a>
+      <a href="products.html">🔥 Today's Deals</a>
+      <a href="products.html">⚡ Flash Sale</a>
     </div>
   </div>
 </nav>
@@ -2042,26 +2042,26 @@
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="cart.html">Cart</a></li>
         <li><a href="track.html">Track Order</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">Wishlist</a></li>
+        <li><a href="dashboard.html">Returns</a></li>
+        <li><a href="dashboard.html">Wishlist</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Press</a></li>
-        <li><a href="#">Sell With Us</a></li>
-        <li><a href="#">Affiliate Program</a></li>
+        <li><a href="index.html">About Us</a></li>
+        <li><a href="index.html">Careers</a></li>
+        <li><a href="index.html">Press</a></li>
+        <li><a href="index.html">Sell With Us</a></li>
+        <li><a href="index.html">Affiliate Program</a></li>
         <li><a href="#">Sustainability</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Help</h4>
       <ul>
-        <li><a href="#">Help Center</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="index.html">Help Center</a></li>
+        <li><a href="index.html">Contact Us</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms of Use</a></li>
         <li><a href="#">Cookie Policy</a></li>
@@ -2241,6 +2241,31 @@
   /* ---------- INIT OFFERS OPEN ---------- */
   document.getElementById('offersAcc').classList.add('open');
 </script>
+
+<script>
+/* ── GLOBAL NAVIGATION CLICK HANDLERS ────────────────── */
+document.querySelectorAll('.cat-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+document.querySelectorAll('.prod-card, .product-card, .item-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', function(e){
+    if(!e.target.closest('button') && !e.target.closest('a')) window.location.href='product.html';
+  });
+});
+document.querySelectorAll('.deal-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='product.html');
+});
+document.querySelectorAll('.brand-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+</script>
 </body>
 </html>
+
+
+
 

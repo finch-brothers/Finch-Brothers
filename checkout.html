@@ -879,10 +879,10 @@
       </a>
       <p>Your one-stop destination for fashion, electronics, home essentials and more. Quality you can trust, value you'll love.</p>
       <div class="footer-socials">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+        <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <div class="footer-col">
@@ -898,19 +898,19 @@
     <div class="footer-col">
       <h4>Categories</h4>
       <ul>
-        <li><a href="#">Fashion</a></li>
-        <li><a href="#">Electronics</a></li>
-        <li><a href="#">Home & Living</a></li>
-        <li><a href="#">Kitchen</a></li>
-        <li><a href="#">Bags & Accessories</a></li>
+        <li><a href="products.html">Fashion</a></li>
+        <li><a href="products.html">Electronics</a></li>
+        <li><a href="index.html">Home & Living</a></li>
+        <li><a href="products.html">Kitchen</a></li>
+        <li><a href="products.html">Bags & Accessories</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Help & Support</h4>
       <ul>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Return Policy</a></li>
-        <li><a href="#">Shipping Info</a></li>
+        <li><a href="index.html">Contact Us</a></li>
+        <li><a href="dashboard.html">Return Policy</a></li>
+        <li><a href="track.html">Shipping Info</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms of Service</a></li>
       </ul>
@@ -1115,6 +1115,31 @@
     if (e.target === this) this.classList.remove('open');
   });
 </script>
+
+<script>
+/* ── GLOBAL NAVIGATION CLICK HANDLERS ────────────────── */
+document.querySelectorAll('.cat-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+document.querySelectorAll('.prod-card, .product-card, .item-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', function(e){
+    if(!e.target.closest('button') && !e.target.closest('a')) window.location.href='product.html';
+  });
+});
+document.querySelectorAll('.deal-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='product.html');
+});
+document.querySelectorAll('.brand-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+</script>
 </body>
 </html>
+
+
+
 

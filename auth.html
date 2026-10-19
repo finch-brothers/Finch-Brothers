@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -443,6 +443,30 @@ function resendOTP(){
 }
 function socialLogin(prov){alert(`Connecting with ${prov}... (demo)`);}
 </script>
+
+<script>
+/* ── GLOBAL NAVIGATION CLICK HANDLERS ────────────────── */
+document.querySelectorAll('.cat-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+document.querySelectorAll('.prod-card, .product-card, .item-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', function(e){
+    if(!e.target.closest('button') && !e.target.closest('a')) window.location.href='product.html';
+  });
+});
+document.querySelectorAll('.deal-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='product.html');
+});
+document.querySelectorAll('.brand-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+</script>
 </body>
 </html>
+
+
 

@@ -584,6 +584,29 @@ function showToast(msg){
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
 document.querySelectorAll('.product-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .4s ease,transform .4s ease';obs.observe(el);});
 </script>
+
+<script>
+/* ── GLOBAL NAVIGATION CLICK HANDLERS ────────────────── */
+document.querySelectorAll('.cat-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+document.querySelectorAll('.prod-card, .product-card, .item-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', function(e){
+    if(!e.target.closest('button') && !e.target.closest('a')) window.location.href='product.html';
+  });
+});
+document.querySelectorAll('.deal-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='product.html');
+});
+document.querySelectorAll('.brand-card').forEach(el => {
+  el.style.cursor='pointer';
+  el.addEventListener('click', () => window.location.href='products.html');
+});
+</script>
 </body>
 </html>
+
 
