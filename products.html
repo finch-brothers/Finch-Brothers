@@ -161,7 +161,7 @@ input[type=range]{width:100%;accent-color:var(--navy);margin:8px 0}
 .toast{position:fixed;bottom:28px;right:28px;background:var(--navy-dark);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);transform:translateX(120%);transition:transform var(--tr);border-left:3px solid var(--gold)}
 .toast.show{transform:translateX(0)}
 </style>
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/></head>
 <body>
 <!-- ANNOUNCE -->
 <div class="announce">
@@ -517,7 +517,11 @@ input[type=range]{width:100%;accent-color:var(--navy);margin:8px 0}
       <div class="footer-logo"><img src="logo.png" alt="Finch Brothers"/></div>
       <div class="footer-desc">Your one-stop destination for fashion, electronics, home essentials and more.</div>
       <div class="social-row">
-        <div class="s-btn">📸</div><div class="s-btn">👥</div><div class="s-btn">🐦</div><div class="s-btn">▶️</div>
+  <a href="https://facebook.com" target="_blank" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://instagram.com" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://twitter.com" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+  <a href="https://youtube.com" target="_blank" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+</div><div class="s-btn">👥</div><div class="s-btn">🐦</div><div class="s-btn">▶️</div>
       </div>
     </div>
     <div>
@@ -610,6 +614,8 @@ document.querySelectorAll('.brand-card').forEach(el => {
 </script>
 </body>
 </html>
+
+
 
 
 

@@ -92,8 +92,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;bo
 .footer-brand img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));margin-bottom:14px}
 .footer-desc{font-size:13px;line-height:1.8;margin-bottom:16px}
 .social-row{display:flex;gap:10px;margin-bottom:16px}
-.social-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--tr)}
-.social-btn:hover{background:var(--gold);color:var(--navy-dark)}
+.social-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(255,255,255,.8);transition:all var(--tr)}
+.social-btn:hover{background:var(--gold);color:var(--navy-dark);transform:translateY(-2px)}
 .footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
 .footer-col li{margin-bottom:8px}
 .footer-col a{font-size:12.5px;color:rgba(255,255,255,.6);transition:color var(--tr)}
@@ -105,7 +105,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;bo
 @media(max-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.page-layout{flex-direction:column}.sidebar{width:100%;position:static}.products-grid{grid-template-columns:repeat(2,1fr)}.main-nav{overflow-x:auto}.header{padding:10px 16px}}
 </style>
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/></head>
 <body>
 
 <div class="toast" id="toast">ðŸ›’ Added to Cart!</div>
@@ -368,11 +368,11 @@ a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;bo
       <img src="logo.png" alt="Finch Brothers"/>
       <p class="footer-desc">Your one-stop destination for fashion, electronics, home essentials and more.</p>
       <div class="social-row">
-        <a href="https://facebook.com" class="social-btn">ðŸ“˜</a>
-        <a href="https://instagram.com" class="social-btn">ðŸ“¸</a>
-        <a href="https://twitter.com" class="social-btn">ðŸ¦</a>
-        <a href="https://youtube.com" class="social-btn">â–¶ï¸</a>
-      </div>
+  <a href="https://facebook.com" target="_blank" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://instagram.com" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://twitter.com" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+  <a href="https://youtube.com" target="_blank" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+</div>
     </div>
     <div class="footer-col"><h4>Shop</h4><ul>
       <li><a href="fashion.html">Fashion</a></li>
@@ -428,4 +428,6 @@ document.querySelectorAll('.color-dot').forEach(d=>d.addEventListener('click',fu
 </script>
 </body>
 </html>
+
+
 
