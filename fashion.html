@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fashion – Finch Brothers</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<style>
+:root{--navy:#0f1f3d;--navy-dark:#0a1628;--navy-light:#1a3560;--gold:#e8a020;--gold-light:#f5b942;--white:#fff;--gray:#f5f6fa;--text:#2d3748;--muted:#718096;--border:#e2e8f0;--radius:12px;--radius-lg:18px;--transition:0.25s cubic-bezier(0.4,0,0.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);background:#f8f9fc;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar{background:var(--navy-dark);color:#fff;text-align:center;font-size:13px;font-weight:500;padding:9px 20px;letter-spacing:.3px;}
+.ann-bar span{color:var(--gold);}
+
+/* ── TOP BAR ── */
+.top-bar{background:var(--navy);padding:14px 0;position:sticky;top:0;z-index:999;box-shadow:0 2px 20px rgba(0,0,0,.25);}
+.top-bar .container{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:20px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo img{height:44px;object-fit:contain;}
+.logo-text{color:#fff;font-size:22px;font-weight:800;line-height:1.1;}
+.logo-text span{color:var(--gold);}
+.search-bar{flex:1;display:flex;max-width:600px;background:#fff;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:var(--transition);}
+.search-bar:focus-within{border-color:var(--gold);}
+.search-bar select{border:none;outline:none;padding:0 14px;font-family:inherit;font-size:13px;color:var(--navy);background:#f0f4ff;cursor:pointer;border-right:1px solid var(--border);}
+.search-bar input{flex:1;border:none;outline:none;padding:11px 14px;font-family:inherit;font-size:14px;color:var(--text);}
+.search-bar button{background:var(--gold);border:none;padding:0 20px;cursor:pointer;color:#fff;font-size:16px;transition:var(--transition);}
+.search-bar button:hover{background:var(--gold-light);}
+.top-actions{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.icon-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:#fff;cursor:pointer;font-family:inherit;font-size:10px;padding:6px 10px;border-radius:8px;text-decoration:none;transition:var(--transition);position:relative;}
+.icon-btn:hover{background:rgba(255,255,255,.1);color:var(--gold);}
+.icon-btn i{font-size:19px;}
+.badge{position:absolute;top:2px;right:4px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;}
+
+/* ── MEGA NAV ── */
+.mega-nav{background:var(--navy-light);border-top:1px solid rgba(255,255,255,.07);}
+.mega-nav .container{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;}
+.nav-item{position:relative;}
+.nav-link{display:flex;align-items:center;gap:6px;color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 16px;border-bottom:3px solid transparent;transition:var(--transition);white-space:nowrap;}
+.nav-link:hover,.nav-link.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-link i{font-size:10px;transition:var(--transition);}
+.nav-item:hover .nav-link i{transform:rotate(180deg);}
+.offers-link{color:var(--gold) !important;}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border-radius:0 0 var(--radius) var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.15);padding:20px;min-width:200px;z-index:998;}
+.nav-item:hover .dropdown{display:block;animation:fadeDown .2s ease;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.dropdown a{display:block;color:var(--text);text-decoration:none;padding:8px 12px;font-size:13px;border-radius:8px;transition:var(--transition);}
+.dropdown a:hover{background:var(--gray);color:var(--navy);}
+
+/* ── PAGE WRAPPER ── */
+.page-wrapper{max-width:1400px;margin:0 auto;padding:24px;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:20px;}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:var(--transition);}
+.breadcrumb a:hover{color:var(--navy);}
+.breadcrumb span{color:var(--navy);font-weight:600;}
+
+/* ── CATEGORY BANNER ── */
+.cat-banner{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 60%,#2a4a80 100%);border-radius:var(--radius-lg);padding:40px 40px;margin-bottom:28px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;}
+.cat-banner::before{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;background:rgba(232,160,32,.08);border-radius:50%;}
+.cat-banner::after{content:'';position:absolute;right:80px;bottom:-80px;width:200px;height:200px;background:rgba(232,160,32,.06);border-radius:50%;}
+.cat-banner-text h1{color:#fff;font-size:32px;font-weight:800;margin-bottom:8px;}
+.cat-banner-text p{color:rgba(255,255,255,.7);font-size:15px;}
+.cat-banner-badge{background:var(--gold);color:var(--navy);font-weight:800;font-size:22px;padding:16px 28px;border-radius:var(--radius);z-index:1;}
+
+/* ── MAIN LAYOUT ── */
+.main-layout{display:flex;gap:24px;align-items:flex-start;}
+
+/* ── FILTER SIDEBAR ── */
+.filter-sidebar{width:260px;flex-shrink:0;background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:0 2px 16px rgba(0,0,0,.06);position:sticky;top:90px;}
+.filter-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.filter-header h3{font-size:16px;font-weight:700;color:var(--navy);}
+.clear-btn{font-size:12px;color:var(--gold);background:none;border:none;cursor:pointer;font-weight:600;font-family:inherit;}
+.clear-btn:hover{text-decoration:underline;}
+.filter-section{border-top:1px solid var(--border);padding:16px 0;}
+.filter-section h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;}
+.filter-check{display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;font-size:13px;color:var(--text);}
+.filter-check input{accent-color:var(--gold);width:15px;height:15px;}
+.filter-check:hover{color:var(--navy);}
+.price-slider{width:100%;accent-color:var(--gold);}
+.price-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;}
+.rating-row{display:flex;align-items:center;gap:6px;padding:4px 0;cursor:pointer;font-size:13px;}
+.rating-row input{accent-color:var(--gold);}
+.stars{color:var(--gold);font-size:12px;}
+.color-swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:var(--transition);}
+.swatch:hover,.swatch.active{border-color:var(--navy);transform:scale(1.15);}
+.size-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.size-btn{padding:5px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);background:#fff;}
+.size-btn:hover,.size-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.discount-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.discount-chip{padding:4px 10px;background:var(--gray);border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);}
+.discount-chip:hover,.discount-chip.active{background:var(--gold);border-color:var(--gold);color:var(--navy);}
+
+/* ── PRODUCTS AREA ── */
+.products-area{flex:1;min-width:0;}
+
+/* ── SORT BAR ── */
+.sort-bar{background:#fff;border-radius:var(--radius);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.results-count{font-size:14px;color:var(--muted);}
+.results-count strong{color:var(--navy);font-weight:700;}
+.sort-right{display:flex;align-items:center;gap:12px;}
+.sort-select{border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;font-family:inherit;font-size:13px;color:var(--text);outline:none;cursor:pointer;transition:var(--transition);}
+.sort-select:focus{border-color:var(--gold);}
+.view-btns{display:flex;gap:4px;}
+.view-btn{width:34px;height:34px;border:1.5px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:var(--transition);}
+.view-btn.active,.view-btn:hover{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+/* ── PRODUCT GRID ── */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:1200px){.product-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr);} .main-layout{flex-direction:column;} .filter-sidebar{width:100%;position:static;}}
+@media(max-width:480px){.product-grid{grid-template-columns:repeat(1,1fr);}}
+
+/* ── PRODUCT CARD ── */
+.product-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:var(--transition);cursor:pointer;position:relative;display:flex;flex-direction:column;}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(15,31,61,.14);}
+.card-img-wrap{position:relative;overflow:hidden;aspect-ratio:3/4;background:#f0f4ff;}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:var(--transition);}
+.product-card:hover .card-img-wrap img{transform:scale(1.06);}
+.card-badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px;}
+.badge-off{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;}
+.badge-new{background:#10b981;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;}
+.card-wishlist{position:absolute;top:10px;right:10px;background:#fff;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);color:var(--muted);transition:var(--transition);font-size:14px;}
+.card-wishlist:hover,.card-wishlist.active{color:#e53e3e;}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.card-brand{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.card-title{font-size:13.5px;font-weight:700;color:var(--navy);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-rating{display:flex;align-items:center;gap:6px;}
+.card-rating .stars{color:var(--gold);font-size:12px;}
+.card-rating span{font-size:12px;color:var(--muted);}
+.card-price{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.price-now{font-size:16px;font-weight:800;color:var(--navy);}
+.price-was{font-size:13px;color:var(--muted);text-decoration:line-through;}
+.price-save{font-size:11px;font-weight:700;color:#10b981;}
+.card-footer{padding:0 14px 14px;display:flex;gap:8px;}
+.btn-cart{flex:1;background:var(--navy);color:#fff;border:none;padding:10px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-cart:hover{background:var(--gold);color:var(--navy);}
+.btn-view{background:var(--gray);border:none;width:38px;height:38px;border-radius:10px;cursor:pointer;color:var(--navy);font-size:14px;transition:var(--transition);display:flex;align-items:center;justify-content:center;}
+.btn-view:hover{background:var(--navy-light);color:#fff;}
+
+/* ── PAGINATION ── */
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:32px;}
+.page-btn{width:40px;height:40px;border:1.5px solid var(--border);background:#fff;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);transition:var(--transition);}
+.page-btn:hover{border-color:var(--navy);color:var(--navy);}
+.page-btn.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(15,31,61,.3);transform:translateY(80px);opacity:0;transition:var(--transition);z-index:9999;display:flex;align-items:center;gap:10px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast i{color:var(--gold);}
+
+/* ── FOOTER ── */
+footer{background:var(--navy-dark);color:#fff;padding:60px 0 0;margin-top:60px;}
+.footer-grid{max-width:1400px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;gap:40px;}
+.footer-brand .logo-text{font-size:20px;margin-bottom:14px;}
+.footer-brand p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.7;margin-bottom:18px;}
+.social-links{display:flex;gap:10px;}
+.social-link{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);text-decoration:none;transition:var(--transition);font-size:14px;}
+.social-link:hover{background:var(--gold);color:var(--navy);}
+.footer-col h4{font-size:14px;font-weight:700;margin-bottom:18px;color:#fff;position:relative;}
+.footer-col h4::after{content:'';position:absolute;bottom:-6px;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px;}
+.footer-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 0;transition:var(--transition);}
+.footer-col a:hover{color:var(--gold);padding-left:6px;}
+.footer-newsletter input{width:100%;padding:11px 14px;border-radius:8px;border:none;font-family:inherit;font-size:13px;margin-bottom:10px;outline:none;}
+.footer-newsletter button{width:100%;padding:11px;background:var(--gold);border:none;border-radius:8px;color:var(--navy);font-weight:700;font-family:inherit;cursor:pointer;transition:var(--transition);}
+.footer-newsletter button:hover{background:var(--gold-light);}
+.footer-bottom{max-width:1400px;margin:40px auto 0;padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.4);}
+.payment-icons{display:flex;gap:8px;}
+.pay-icon{background:rgba(255,255,255,.08);padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);}
+
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;} .footer-bottom{flex-direction:column;gap:10px;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;} .top-bar .container{flex-wrap:wrap;} .search-bar{order:3;width:100%;max-width:100%;} .cat-banner{flex-direction:column;gap:16px;} .cat-banner-text h1{font-size:22px;}}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">🎉 MEGA SALE: Up to <span>70% OFF</span> on Fashion! Free Shipping over ₹499 &nbsp;|&nbsp; <span>Use code: FINCH20</span> for extra 20% off</div>
+
+<!-- STICKY HEADER -->
+<header class="top-bar">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Finch Brothers"/>
+      <div class="logo-text">Finch <span>Brothers</span></div>
+    </a>
+    <div class="search-bar">
+      <select><option>All</option><option>Fashion</option><option>Footwear</option><option>Bags</option><option>Electronics</option></select>
+      <input type="text" placeholder="Search for products, brands..."/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="top-actions">
+      <a href="auth.html" class="icon-btn"><i class="fas fa-user"></i>Account</a>
+      <a href="dashboard.html" class="icon-btn"><i class="fas fa-heart"></i>Wishlist<span class="badge">3</span></a>
+      <a href="cart.html" class="icon-btn"><i class="fas fa-shopping-bag"></i>Cart<span class="badge">2</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- MEGA NAV -->
+<nav class="mega-nav">
+  <div class="container">
+    <div class="nav-item">
+      <a href="fashion.html" class="nav-link active"><i class="fas fa-tshirt"></i> Fashion <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown">
+        <a href="fashion.html">Men's Clothing</a>
+        <a href="fashion.html">Women's Clothing</a>
+        <a href="fashion.html">Ethnic Wear</a>
+        <a href="fashion.html">Activewear</a>
+        <a href="fashion.html">Winter Wear</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="footwear.html" class="nav-link"><i class="fas fa-shoe-prints"></i> Footwear <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown">
+        <a href="footwear.html">Men's Shoes</a>
+        <a href="footwear.html">Women's Shoes</a>
+        <a href="footwear.html">Sports Shoes</a>
+        <a href="footwear.html">Sandals</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="bags.html" class="nav-link"><i class="fas fa-shopping-bag"></i> Bags <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown">
+        <a href="bags.html">Backpacks</a>
+        <a href="bags.html">Handbags</a>
+        <a href="bags.html">Wallets</a>
+        <a href="bags.html">Luggage</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="electronics.html" class="nav-link"><i class="fas fa-laptop"></i> Electronics <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown">
+        <a href="electronics.html">Mobiles</a>
+        <a href="electronics.html">Laptops</a>
+        <a href="electronics.html">Audio</a>
+        <a href="electronics.html">Cameras</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="home-decor.html" class="nav-link"><i class="fas fa-home"></i> Home &amp; Decor</a>
+    </div>
+    <div class="nav-item">
+      <a href="kitchen.html" class="nav-link"><i class="fas fa-utensils"></i> Kitchen</a>
+    </div>
+    <div class="nav-item">
+      <a href="beauty.html" class="nav-link"><i class="fas fa-spa"></i> Beauty</a>
+    </div>
+    <div class="nav-item">
+      <a href="sports.html" class="nav-link"><i class="fas fa-dumbbell"></i> Sports</a>
+    </div>
+    <div class="nav-item">
+      <a href="offers.html" class="nav-link offers-link"><i class="fas fa-bolt"></i> Flash Sale</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE WRAPPER -->
+<div class="page-wrapper">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+    <span>Fashion</span>
+  </div>
+
+  <!-- CATEGORY BANNER -->
+  <div class="cat-banner">
+    <div class="cat-banner-text">
+      <h1>Fashion Collection</h1>
+      <p>Discover 12,000+ styles for men, women &amp; kids · New arrivals every day</p>
+    </div>
+    <div class="cat-banner-badge">UP TO<br/>50% OFF</div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
+
+    <!-- FILTER SIDEBAR -->
+    <aside class="filter-sidebar">
+      <div class="filter-header">
+        <h3><i class="fas fa-sliders-h" style="color:var(--gold);margin-right:8px;"></i>Filters</h3>
+        <button class="clear-btn" onclick="clearFilters()">Clear All</button>
+      </div>
+
+      <!-- Category -->
+      <div class="filter-section">
+        <h4>Category</h4>
+        <label class="filter-check"><input type="checkbox" checked/> Men's Clothing</label>
+        <label class="filter-check"><input type="checkbox" checked/> Women's Clothing</label>
+        <label class="filter-check"><input type="checkbox"/> Ethnic Wear</label>
+        <label class="filter-check"><input type="checkbox"/> Kids' Fashion</label>
+        <label class="filter-check"><input type="checkbox"/> Activewear</label>
+      </div>
+
+      <!-- Price -->
+      <div class="filter-section">
+        <h4>Price Range</h4>
+        <input type="range" class="price-slider" min="0" max="10000" value="5000" id="priceSlider" oninput="document.getElementById('priceVal').textContent='₹'+this.value"/>
+        <div class="price-labels"><span>₹0</span><span id="priceVal">₹5,000</span></div>
+      </div>
+
+      <!-- Brand -->
+      <div class="filter-section">
+        <h4>Brand</h4>
+        <label class="filter-check"><input type="checkbox"/> Levi's</label>
+        <label class="filter-check"><input type="checkbox" checked/> Finch Originals</label>
+        <label class="filter-check"><input type="checkbox"/> Allen Solly</label>
+        <label class="filter-check"><input type="checkbox"/> W for Women</label>
+        <label class="filter-check"><input type="checkbox"/> FabIndia</label>
+      </div>
+
+      <!-- Rating -->
+      <div class="filter-section">
+        <h4>Rating</h4>
+        <label class="rating-row"><input type="radio" name="rating"/> <span class="stars">★★★★★</span> 5</label>
+        <label class="rating-row"><input type="radio" name="rating" checked/> <span class="stars">★★★★</span> & above</label>
+        <label class="rating-row"><input type="radio" name="rating"/> <span class="stars">★★★</span> & above</label>
+      </div>
+
+      <!-- Size -->
+      <div class="filter-section">
+        <h4>Size</h4>
+        <div class="size-btns">
+          <button class="size-btn">XS</button>
+          <button class="size-btn active">S</button>
+          <button class="size-btn active">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+          <button class="size-btn">XXL</button>
+        </div>
+      </div>
+
+      <!-- Color -->
+      <div class="filter-section">
+        <h4>Color</h4>
+        <div class="color-swatches">
+          <div class="swatch active" style="background:#1a1a2e;" title="Navy"></div>
+          <div class="swatch" style="background:#fff;border-color:#ddd;" title="White"></div>
+          <div class="swatch" style="background:#e53e3e;" title="Red"></div>
+          <div class="swatch" style="background:#38a169;" title="Green"></div>
+          <div class="swatch" style="background:#e8a020;" title="Gold"></div>
+          <div class="swatch" style="background:#805ad5;" title="Purple"></div>
+          <div class="swatch" style="background:#2d3748;" title="Charcoal"></div>
+        </div>
+      </div>
+
+      <!-- Discount -->
+      <div class="filter-section">
+        <h4>Discount</h4>
+        <div class="discount-chips">
+          <span class="discount-chip">10%+</span>
+          <span class="discount-chip">20%+</span>
+          <span class="discount-chip active">40%+</span>
+          <span class="discount-chip">50%+</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS AREA -->
+    <div class="products-area">
+
+      <!-- SORT BAR -->
+      <div class="sort-bar">
+        <div class="results-count">Showing <strong>12</strong> of <strong>1,240</strong> results</div>
+        <div class="sort-right">
+          <select class="sort-select">
+            <option>Sort: Relevance</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Newest First</option>
+            <option>Top Rated</option>
+            <option>Most Popular</option>
+          </select>
+          <div class="view-btns">
+            <button class="view-btn active" title="Grid View"><i class="fas fa-th"></i></button>
+            <button class="view-btn" title="List View"><i class="fas fa-list"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT GRID -->
+      <div class="product-grid" id="productGrid">
+
+        <!-- 1 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/shirt.jpg" alt="Men's Premium Oxford Shirt" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">48% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Finch Originals</div>
+            <div class="card-title">Men's Premium Oxford Shirt</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(2.1k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,299</span>
+              <span class="price-was">₹2,499</span>
+              <span class="price-save">Save ₹1,200</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/dress.jpg" alt="Women's Floral Summer Dress" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">43% OFF</span><span class="badge-new">NEW</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">W for Women</div>
+            <div class="card-title">Women's Floral Summer Dress</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(1.8k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,599</span>
+              <span class="price-was">₹2,799</span>
+              <span class="price-save">Save ₹1,200</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/jeans.jpg" alt="Slim Fit Dark Denim Jeans" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">46% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Levi's</div>
+            <div class="card-title">Slim Fit Dark Denim Jeans</div>
+            <div class="card-rating"><span class="stars">★★★★</span><span>(3.4k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,899</span>
+              <span class="price-was">₹3,499</span>
+              <span class="price-save">Save ₹1,600</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/jacket.jpg" alt="Premium Winter Puffer Jacket" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">50% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Finch Originals</div>
+            <div class="card-title">Premium Winter Puffer Jacket</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(987)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹2,499</span>
+              <span class="price-was">₹4,999</span>
+              <span class="price-save">Save ₹2,500</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/handbag.jpg" alt="Designer Leather Handbag" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">45% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Finch Luxe</div>
+            <div class="card-title">Designer Leather Handbag</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(1.2k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹3,299</span>
+              <span class="price-was">₹5,999</span>
+              <span class="price-save">Save ₹2,700</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/sunglasses.jpg" alt="Polarized Aviator Sunglasses" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">50% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Ray Style</div>
+            <div class="card-title">Polarized Aviator Sunglasses</div>
+            <div class="card-rating"><span class="stars">★★★★</span><span>(4.6k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹899</span>
+              <span class="price-was">₹1,799</span>
+              <span class="price-save">Save ₹900</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/perfume.jpg" alt="Luxury Floral Perfume" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">50% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Maison Bloom</div>
+            <div class="card-title">Luxury Floral Perfume 100ml EDP</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(876)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,499</span>
+              <span class="price-was">₹2,999</span>
+              <span class="price-save">Save ₹1,500</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/skincare.jpg" alt="Advanced Skincare Gift Set" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">40% OFF</span><span class="badge-new">HOT</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">GlowUp</div>
+            <div class="card-title">Advanced Skincare Gift Set</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(2.3k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,499</span>
+              <span class="price-was">₹2,499</span>
+              <span class="price-save">Save ₹1,000</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/watch.jpg" alt="Smart Running Watch" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">55% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">TechWear</div>
+            <div class="card-title">Smart Running Watch with GPS</div>
+            <div class="card-rating"><span class="stars">★★★★</span><span>(5.1k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹2,699</span>
+              <span class="price-was">₹5,999</span>
+              <span class="price-save">Save ₹3,300</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/backpack.jpg" alt="Classic Laptop Backpack" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">40% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Finch Gear</div>
+            <div class="card-title">Classic Laptop Backpack 30L</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(3.7k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹1,799</span>
+              <span class="price-was">₹2,999</span>
+              <span class="price-save">Save ₹1,200</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/shirt.jpg" alt="Men's Casual Shirt Blue" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">50% OFF</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Allen Solly</div>
+            <div class="card-title">Men's Casual Shirt – Sky Blue</div>
+            <div class="card-rating"><span class="stars">★★★★</span><span>(1.4k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹999</span>
+              <span class="price-was">₹1,999</span>
+              <span class="price-save">Save ₹1,000</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="product-card" onclick="location.href='product.html'">
+          <div class="card-img-wrap">
+            <img src="images/products/dress.jpg" alt="Women's Party Dress" loading="lazy"/>
+            <div class="card-badges"><span class="badge-off">45% OFF</span><span class="badge-new">TREND</span></div>
+            <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active')"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">FabIndia</div>
+            <div class="card-title">Women's Embroidered Party Dress</div>
+            <div class="card-rating"><span class="stars">★★★★★</span><span>(2.9k)</span></div>
+            <div class="card-price">
+              <span class="price-now">₹2,199</span>
+              <span class="price-was">₹3,999</span>
+              <span class="price-save">Save ₹1,800</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn-cart" onclick="event.stopPropagation();addToCart(this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+            <button class="btn-view" onclick="event.stopPropagation();location.href='product.html'" title="Quick View"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+      </div><!-- /product-grid -->
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">4</button>
+        <button class="page-btn">...</button>
+        <button class="page-btn">103</button>
+        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+    </div><!-- /products-area -->
+  </div><!-- /main-layout -->
+</div><!-- /page-wrapper -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> Added to Cart!</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">Finch <span style="color:var(--gold)">Brothers</span></div>
+      <p>India's fastest-growing e-commerce platform. Delivering joy to 500+ cities with 10M+ happy customers.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="fashion.html">Fashion</a>
+      <a href="footwear.html">Footwear</a>
+      <a href="bags.html">Bags</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="home-decor.html">Home &amp; Decor</a>
+      <a href="kitchen.html">Kitchen</a>
+      <a href="beauty.html">Beauty</a>
+      <a href="sports.html">Sports</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">My Account</a>
+      <a href="track.html">Track Order</a>
+      <a href="#">Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="#">FAQs</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Affiliate Program</a>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <p style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:14px;">Get exclusive deals &amp; new arrivals in your inbox.</p>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Your email address"/>
+        <button>Subscribe Now</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Finch Brothers Pvt Ltd · All rights reserved</span>
+    <div class="payment-icons">
+      <span class="pay-icon">UPI</span>
+      <span class="pay-icon">Visa</span>
+      <span class="pay-icon">MC</span>
+      <span class="pay-icon">Paytm</span>
+      <span class="pay-icon">GPay</span>
+      <span class="pay-icon">COD</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function addToCart(btn){
+  const toast=document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2500);
+}
+function clearFilters(){
+  document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb=>cb.checked=false);
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.discount-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
+}
+// Size toggle
+document.querySelectorAll('.size-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>btn.classList.toggle('active'));
+});
+// Discount chip toggle
+document.querySelectorAll('.discount-chip').forEach(chip=>{
+  chip.addEventListener('click',()=>chip.classList.toggle('active'));
+});
+// Swatch toggle
+document.querySelectorAll('.swatch').forEach(sw=>{
+  sw.addEventListener('click',()=>{document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));sw.classList.add('active');});
+});
+// View toggle
+document.querySelectorAll('.view-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});
+});
+// Page btn
+document.querySelectorAll('.page-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{document.querySelectorAll('.page-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});
+});
+</script>
+</body>
+</html>
+

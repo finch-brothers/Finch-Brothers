@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Flash Sale & Offers – Finch Brothers</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0f1f3d;--navy-dark:#0a1628;--navy-light:#1a3560;--gold:#e8a020;--gold-light:#f5b942;--white:#fff;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;--gray-600:#6b7280;--gray-800:#1f2937;--red:#dc2626;--green:#16a34a;--shadow:0 4px 16px rgba(0,0,0,.1);--shadow-lg:0 8px 32px rgba(0,0,0,.14);--radius:12px;--tr:.25s cubic-bezier(.4,0,.2,1)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--gray-50);color:var(--gray-800);font-size:14px}
+a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;border:none;font-family:inherit}img{max-width:100%;display:block}
+.announce{background:var(--navy-dark);color:rgba(255,255,255,.85);font-size:12px;padding:7px 24px;display:flex;justify-content:center;gap:40px;font-weight:500}
+.header{background:#fff;padding:12px 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.logo img{height:50px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.search-wrap{flex:1;display:flex;border:2px solid var(--gray-200);border-radius:999px;overflow:hidden;transition:border-color var(--tr)}
+.search-wrap:focus-within{border-color:var(--navy)}
+.search-input{flex:1;padding:9px 14px;font-size:13.5px;border:none;background:transparent;outline:none;font-family:inherit}
+.search-btn{padding:9px 18px;background:var(--navy);color:#fff;font-size:17px;display:flex;align-items:center}
+.hdr-actions{display:flex;align-items:center;gap:4px}
+.hdr-btn{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 9px;border-radius:8px;color:var(--gray-800);font-size:11px;font-weight:600;transition:all var(--tr);position:relative}
+.hdr-btn:hover{color:var(--navy);background:var(--gray-100)}
+.hdr-icon{font-size:20px}
+.badge{position:absolute;top:2px;right:4px;background:var(--gold);color:var(--navy-dark);font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.hdr-divider{width:1px;height:30px;background:var(--gray-200);margin:0 3px}
+.main-nav{background:var(--navy);padding:0 32px;display:flex;align-items:center;gap:0}
+.nav-link{display:flex;align-items:center;gap:4px;padding:12px 14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);border-bottom:3px solid transparent;transition:all var(--tr);white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:#fff;border-bottom-color:var(--gold);background:rgba(255,255,255,.06)}
+.nav-link.hot{color:var(--gold-light)}
+.nav-spacer{flex:1}
+.nav-extra{display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--gold);color:var(--navy-dark);font-size:12px;font-weight:800;border-radius:999px;transition:all var(--tr)}
+.nav-extra:hover{background:var(--gold-light)}
+/* HERO BANNER */
+.offers-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,#1a1060 50%,var(--navy) 100%);padding:48px 32px;text-align:center;position:relative;overflow:hidden}
+.offers-hero::before{content:'';position:absolute;inset:0;background:url('images/banners/hero2.jpg') center/cover no-repeat;opacity:.15}
+.hero-content{position:relative;z-index:1}
+.sale-badge{display:inline-block;background:var(--gold);color:var(--navy-dark);padding:6px 20px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:1px;margin-bottom:16px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.hero-title{font-size:clamp(28px,5vw,52px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.1}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px}
+/* COUNTDOWN */
+.countdown-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px}
+.countdown-label{font-size:14px;font-weight:600;color:rgba(255,255,255,.7)}
+.countdown{display:flex;gap:8px}
+.cbox{background:rgba(255,255,255,.12);border-radius:10px;padding:10px 16px;text-align:center;min-width:62px;border:1px solid rgba(255,255,255,.15)}
+.cbox-num{font-size:28px;font-weight:900;color:#fff;line-height:1}
+.cbox-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.cbox-sep{font-size:28px;font-weight:900;color:var(--gold);line-height:1}
+/* CATEGORIES STRIP */
+.cat-strip{background:#fff;padding:16px 32px;display:flex;gap:10px;overflow-x:auto;border-bottom:1px solid var(--gray-100)}
+.cat-pill{padding:8px 18px;border-radius:999px;border:2px solid var(--gray-200);font-size:12.5px;font-weight:600;cursor:pointer;transition:all var(--tr);white-space:nowrap}
+.cat-pill.active,.cat-pill:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* PRODUCTS */
+.section-wrap{max-width:1400px;margin:0 auto;padding:28px 32px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.section-title{font-size:22px;font-weight:800;color:var(--navy-dark)}
+.section-title span{color:var(--gold)}
+.view-all{padding:8px 20px;border:2px solid var(--navy);color:var(--navy);border-radius:999px;font-size:12.5px;font-weight:700;transition:all var(--tr)}
+.view-all:hover{background:var(--navy);color:#fff}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+/* PRODUCT CARD */
+.pc{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:all var(--tr);cursor:pointer;position:relative}
+.pc:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.pc-img-wrap{position:relative;overflow:hidden;height:200px;background:var(--gray-50)}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pc:hover .pc-img-wrap img{transform:scale(1.07)}
+.wish-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:all var(--tr);z-index:2}
+.wish-btn:hover{background:var(--gold);transform:scale(1.1)}
+.discount-badge{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;z-index:2}
+.stock-bar-wrap{padding:0 12px 0;margin-top:-4px}
+.stock-label{display:flex;justify-content:space-between;font-size:10.5px;color:var(--gray-600);margin-bottom:4px;padding:8px 0 0}
+.stock-bar{height:5px;background:var(--gray-200);border-radius:999px;overflow:hidden}
+.stock-fill{height:100%;background:linear-gradient(90deg,var(--gold),#f97316);border-radius:999px;transition:width .5s}
+.stock-left{font-size:10.5px;color:var(--red);font-weight:700;padding:4px 12px 0}
+.pc-body{padding:12px}
+.pc-brand{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.pc-name{font-size:13px;font-weight:600;color:var(--gray-800);margin-bottom:6px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-stars{color:#f59e0b;font-size:12px;margin-bottom:6px}
+.pc-stars span{color:var(--gray-600);font-size:11px;margin-left:4px}
+.pc-pricing{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.pc-price{font-size:18px;font-weight:900;color:var(--navy-dark)}
+.pc-old{font-size:12px;color:var(--gray-400);text-decoration:line-through}
+.save-txt{font-size:11px;font-weight:700;color:var(--green);margin-bottom:8px}
+.add-cart-btn{width:100%;padding:10px;background:var(--navy);color:#fff;border-radius:8px;font-size:13px;font-weight:700;transition:all var(--tr)}
+.add-cart-btn:hover{background:var(--gold);color:var(--navy-dark)}
+/* FOOTER */
+.footer{background:var(--navy-dark);color:rgba(255,255,255,.7);padding:48px 32px 0}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));margin-bottom:14px}
+.footer-desc{font-size:13px;line-height:1.8;margin-bottom:16px}
+.social-row{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--tr)}
+.social-btn:hover{background:var(--gold);color:var(--navy-dark)}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+.footer-col li{margin-bottom:8px}
+.footer-col a{font-size:12.5px;color:rgba(255,255,255,.6);transition:color var(--tr)}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:16px 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy-dark);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s;box-shadow:var(--shadow-lg)}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:768px){.header{padding:10px 16px}.section-wrap{padding:20px 16px}.products-grid{grid-template-columns:repeat(2,1fr)}.main-nav{overflow-x:auto}.footer-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast">🛒 Added to Cart!</div>
+
+<div class="announce">
+  <span>⚡ MEGA FLASH SALE — Up to 70% OFF today only!</span>
+  <span>🚚 Free Delivery on all orders</span>
+  <span>⏰ Limited time deals</span>
+</div>
+
+<header class="header">
+  <a href="index.html" class="logo"><img src="logo.png" alt="Finch Brothers"/></a>
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="Search deals, offers, flash sale..."/>
+    <button class="search-btn">🔍</button>
+  </div>
+  <div class="hdr-actions">
+    <a href="auth.html" class="hdr-btn"><span class="hdr-icon">👤</span><span>Account</span></a>
+    <a href="dashboard.html" class="hdr-btn"><span class="hdr-icon">❤️</span><span>Wishlist</span></a>
+    <div class="hdr-divider"></div>
+    <a href="cart.html" class="hdr-btn" style="position:relative"><div class="badge">3</div><span class="hdr-icon">🛒</span><span>Cart</span></a>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="fashion.html" class="nav-link">👕 Fashion</a>
+  <a href="footwear.html" class="nav-link">👟 Footwear</a>
+  <a href="bags.html" class="nav-link">👜 Bags</a>
+  <a href="electronics.html" class="nav-link">📱 Electronics</a>
+  <a href="home-decor.html" class="nav-link">🪴 Home &amp; Decor</a>
+  <a href="kitchen.html" class="nav-link">🍳 Kitchen</a>
+  <a href="beauty.html" class="nav-link">💄 Beauty</a>
+  <a href="sports.html" class="nav-link">⚽ Sports</a>
+  <div class="nav-spacer"></div>
+  <a href="offers.html" class="nav-link hot active">🔥 Offers</a>
+  <a href="offers.html" class="nav-extra">⚡ Flash Sale</a>
+</nav>
+
+<!-- HERO -->
+<div class="offers-hero">
+  <div class="hero-content">
+    <div class="sale-badge">⚡ MEGA FLASH SALE</div>
+    <h1 class="hero-title">Up to <span>70% OFF</span><br/>on 1000+ Products!</h1>
+    <p class="hero-sub">Limited time deals — Don't miss out on the biggest sale of the year</p>
+    <div class="countdown-wrap">
+      <div class="countdown-label">Ends in:</div>
+      <div class="countdown">
+        <div class="cbox"><div class="cbox-num" id="dd">02</div><div class="cbox-lbl">Days</div></div>
+        <div class="cbox-sep">:</div>
+        <div class="cbox"><div class="cbox-num" id="hh">08</div><div class="cbox-lbl">Hours</div></div>
+        <div class="cbox-sep">:</div>
+        <div class="cbox"><div class="cbox-num" id="mm">34</div><div class="cbox-lbl">Mins</div></div>
+        <div class="cbox-sep">:</div>
+        <div class="cbox"><div class="cbox-num" id="ss">15</div><div class="cbox-lbl">Secs</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY FILTER STRIP -->
+<div class="cat-strip">
+  <div class="cat-pill active">All Deals</div>
+  <a href="fashion.html" class="cat-pill">👕 Fashion</a>
+  <a href="footwear.html" class="cat-pill">👟 Footwear</a>
+  <a href="electronics.html" class="cat-pill">📱 Electronics</a>
+  <a href="bags.html" class="cat-pill">👜 Bags</a>
+  <a href="beauty.html" class="cat-pill">💄 Beauty</a>
+  <a href="home-decor.html" class="cat-pill">🪴 Home</a>
+  <a href="kitchen.html" class="cat-pill">🍳 Kitchen</a>
+  <a href="sports.html" class="cat-pill">⚽ Sports</a>
+</div>
+
+<!-- FLASH DEALS GRID -->
+<div class="section-wrap">
+  <div class="section-header">
+    <div class="section-title">🔥 Today's <span>Flash Deals</span></div>
+    <a href="products.html" class="view-all">View All Products →</a>
+  </div>
+
+  <div class="products-grid">
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/earbuds.jpg" alt="Earbuds"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-59%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 87% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:87%"></div></div></div>
+      <div class="stock-left">Only 4 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Tech</div>
+        <div class="pc-name">True Wireless ANC Earbuds Pro</div>
+        <div class="pc-stars">★★★★★ <span>4.9 (1,024)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹1,449</span><span class="pc-old">₹3,499</span></div>
+        <div class="save-txt">💰 You save ₹2,050!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/watch.jpg" alt="Smart Watch"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-55%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 78% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:78%"></div></div></div>
+      <div class="stock-left">Only 12 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Tech</div>
+        <div class="pc-name">Smart Watch Series 5 – AMOLED Display</div>
+        <div class="pc-stars">★★★★★ <span>4.8 (892)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹2,699</span><span class="pc-old">₹5,999</span></div>
+        <div class="save-txt">💰 You save ₹3,300!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/shirt.jpg" alt="Shirt"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-48%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 62% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:62%"></div></div></div>
+      <div class="stock-left">Only 28 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Apparel</div>
+        <div class="pc-name">Men's Premium Oxford Casual Shirt</div>
+        <div class="pc-stars">★★★★★ <span>4.8 (238)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹1,299</span><span class="pc-old">₹2,499</span></div>
+        <div class="save-txt">💰 You save ₹1,200!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/airfryer.jpg" alt="Air Fryer"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-61%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 96% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:96%"></div></div></div>
+      <div class="stock-left">Only 3 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Kitchen</div>
+        <div class="pc-name">Digital Air Fryer 5.5L XL – 1800W</div>
+        <div class="pc-stars">★★★★★ <span>4.9 (1,204)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹3,499</span><span class="pc-old">₹8,999</span></div>
+        <div class="save-txt">💰 You save ₹5,500!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/laptop.jpg" alt="Laptop"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-30%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 45% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:45%"></div></div></div>
+      <div class="stock-left">Only 6 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Tech</div>
+        <div class="pc-name">Ultra-Slim Laptop 15.6" FHD – i5 16GB</div>
+        <div class="pc-stars">★★★★★ <span>4.7 (456)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹45,999</span><span class="pc-old">₹65,999</span></div>
+        <div class="save-txt">💰 You save ₹20,000!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/handbag.jpg" alt="Handbag"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-45%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 72% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:72%"></div></div></div>
+      <div class="stock-left">Only 8 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Style</div>
+        <div class="pc-name">Designer Leather Tote Handbag</div>
+        <div class="pc-stars">★★★★★ <span>4.9 (284)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹3,299</span><span class="pc-old">₹5,999</span></div>
+        <div class="save-txt">💰 You save ₹2,700!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/shoes.jpg" alt="Shoes"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-45%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 58% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:58%"></div></div></div>
+      <div class="stock-left">Only 19 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Sport</div>
+        <div class="pc-name">Pro Running Shoes Air Cushion</div>
+        <div class="pc-stars">★★★★★ <span>4.9 (512)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹2,199</span><span class="pc-old">₹3,999</span></div>
+        <div class="save-txt">💰 You save ₹1,800!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/skincare.jpg" alt="Skincare"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-40%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 55% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:55%"></div></div></div>
+      <div class="stock-left">Only 22 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Glow</div>
+        <div class="pc-name">Advanced Skincare Gift Set (3 Products)</div>
+        <div class="pc-stars">★★★★★ <span>4.8 (367)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹1,499</span><span class="pc-old">₹2,499</span></div>
+        <div class="save-txt">💰 You save ₹1,000!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/phone.jpg" alt="Phone"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-32%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 69% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:69%"></div></div></div>
+      <div class="stock-left">Only 11 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Tech</div>
+        <div class="pc-name">Flagship Android Smartphone 128GB</div>
+        <div class="pc-stars">★★★★★ <span>4.8 (728)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹18,999</span><span class="pc-old">₹27,999</span></div>
+        <div class="save-txt">💰 You save ₹9,000!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/dress.jpg" alt="Dress"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-43%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 41% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:41%"></div></div></div>
+      <div class="stock-left">Only 34 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Fashion</div>
+        <div class="pc-name">Women's Floral Summer Dress</div>
+        <div class="pc-stars">★★★★★ <span>4.7 (312)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹1,599</span><span class="pc-old">₹2,799</span></div>
+        <div class="save-txt">💰 You save ₹1,200!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/camera.jpg" alt="Camera"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-38%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 33% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:33%"></div></div></div>
+      <div class="stock-left">Only 7 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Tech</div>
+        <div class="pc-name">DSLR Camera 24MP – 4K Video</div>
+        <div class="pc-stars">★★★★★ <span>4.8 (198)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹24,999</span><span class="pc-old">₹39,999</span></div>
+        <div class="save-txt">💰 You save ₹15,000!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="pc" onclick="window.location.href='product.html'">
+      <div class="pc-img-wrap"><img src="images/products/perfume.jpg" alt="Perfume"/>
+        <button class="wish-btn" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+        <div class="discount-badge">-50%</div>
+      </div>
+      <div class="stock-bar-wrap"><div class="stock-label"><span>🔥 80% sold</span></div><div class="stock-bar"><div class="stock-fill" style="width:80%"></div></div></div>
+      <div class="stock-left">Only 5 left!</div>
+      <div class="pc-body">
+        <div class="pc-brand">FB Luxe</div>
+        <div class="pc-name">Luxury Floral Perfume EDP 100ml</div>
+        <div class="pc-stars">★★★★★ <span>4.9 (421)</span></div>
+        <div class="pc-pricing"><span class="pc-price">₹1,499</span><span class="pc-old">₹2,999</span></div>
+        <div class="save-txt">💰 You save ₹1,500!</div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart()">🛒 Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Finch Brothers"/>
+      <p class="footer-desc">Your one-stop destination for fashion, electronics, home essentials and more. Quality products, unbeatable prices.</p>
+      <div class="social-row">
+        <a href="https://facebook.com" class="social-btn">📘</a>
+        <a href="https://instagram.com" class="social-btn">📸</a>
+        <a href="https://twitter.com" class="social-btn">🐦</a>
+        <a href="https://youtube.com" class="social-btn">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a href="fashion.html">Fashion</a></li><li><a href="footwear.html">Footwear</a></li>
+      <li><a href="bags.html">Bags &amp; Travel</a></li><li><a href="electronics.html">Electronics</a></li>
+      <li><a href="home-decor.html">Home &amp; Decor</a></li><li><a href="kitchen.html">Kitchen</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Quick Links</h4><ul>
+      <li><a href="index.html">About Us</a></li><li><a href="offers.html">Flash Deals</a></li>
+      <li><a href="track.html">Track Order</a></li><li><a href="dashboard.html">My Account</a></li>
+      <li><a href="auth.html">Login / Register</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Support</h4><ul>
+      <li><a href="track.html">Track Order</a></li><li><a href="dashboard.html">Returns</a></li>
+      <li><a href="track.html">Shipping Info</a></li><li><a href="index.html">Help Center</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Account</h4><ul>
+      <li><a href="auth.html">Login / Register</a></li><li><a href="dashboard.html">My Orders</a></li>
+      <li><a href="dashboard.html">Wishlist</a></li><li><a href="cart.html">My Cart</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Finch Brothers. All rights reserved.</span>
+    <span>Made with ❤️ in India 🇮🇳</span>
+  </div>
+</footer>
+
+<script>
+function addToCart(){var t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+function toggleWish(btn){btn.textContent=btn.textContent==='🤍'?'❤️':'🤍'}
+// Countdown timer
+var end=new Date();end.setHours(end.getHours()+50,34,15,0);
+function tick(){
+  var now=new Date(),d=end-now,s=Math.floor(d/1000),m=Math.floor(s/60),h=Math.floor(m/60),dy=Math.floor(h/24);
+  if(d<=0)return;
+  document.getElementById('dd').textContent=String(dy).padStart(2,'0');
+  document.getElementById('hh').textContent=String(h%24).padStart(2,'0');
+  document.getElementById('mm').textContent=String(m%60).padStart(2,'0');
+  document.getElementById('ss').textContent=String(s%60).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+document.querySelectorAll('.cat-pill').forEach(p=>p.addEventListener('click',function(){
+  document.querySelectorAll('.cat-pill').forEach(x=>x.classList.remove('active'));
+  this.classList.add('active');
+}));
+</script>
+</body>
+</html>
